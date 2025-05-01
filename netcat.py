@@ -23,16 +23,40 @@ class NetCat:
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
         
     def listen(self):
-        self.socket.bind((self.args.target, self.args.port)) #binds
+        self.socket.bind((self.args.target, self.args.port)) #binds target and port
         self.socket.listen(5)
         
-        while True:
+        while True: #listen in a loop
             client_socket, _ = self.socket.accept()
             client_thread = threading.Thread(
-                target=self.handle, args=(client_socket,)
+                target=self.handle, args=(client_socket,) #passing connected socket to handle()
             )
             client_thread.start
-    
+            
+    def send(self):
+        self.socket.connect((self.args.target, self.args.port))
+        if self.buffer:
+            self.socket.send(self.buffer)
+        try:
+            while True:
+                recev_len = 1
+                response = ''
+                while recev_len:
+                    data = self.socket.recv(4096)
+                    recev_len = len(data)
+                    response += data.decode()
+                    if recev_len<4096:
+                        break
+                if response:
+                    print(response)
+                    buffer = input('>')
+                    buffer += '\n'
+                    self.socket.send(buffer.encode())
+        except KeyboardInterrupt:
+            print('User terminated.')
+            self.socket.close()
+            sys.exit()
+        
     def run(self):
         if self.args.listen: #If listener, call listener method
             self.listen()
