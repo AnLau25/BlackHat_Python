@@ -15,6 +15,19 @@ def execute(cdm):
     #𝗰𝗵𝗲𝗰𝗸_𝗼𝘂𝘁𝗽𝘂𝘁 runs the comand and captures the output
     return output.decode()
 
+class NetCat:
+    def __init__(self, args, buffer=None): #innit with command line args and buffer
+        self.args = args
+        self.buffer = buffer
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #create socket (client)
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
+    
+    def run(self):
+        if self.args.listen: #If listener, call listener method
+            self.listen()
+        else: #Else, send
+            self.send()        
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(#creates the command line interface
         description='BHP Net Tool',
