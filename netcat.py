@@ -32,7 +32,40 @@ class NetCat:
                 target=self.handle, args=(client_socket,) #passing connected socket to handle()
             )
             client_thread.start
+    
     def handle(self, client_socket):
+        if self.args.execute:
+            output = execute(self.args.execute)
+            client_socket.send(output.encode())  
+              
+        elif self.args.upload:
+            file_buffer = b''        
+            while True:
+                data = client_socket.recev(4096)
+                if data:
+                    file_buffer += data
+                else: 
+                    break
+            with open(self.args.upload, 'wb') as f:
+                f.write(file_buffer)
+            message = f'Saved file {self.args.upload}'
+            client_socket.send(message.encode())
+            
+        elif self.args.command:
+            cdm_buffer = b''
+            while True:
+                try: 
+                    client_socket.send(b'BHP: #> ')
+                    while '\n' not in cdm_buffer.decode():
+                        cdm_buffer += client_socket.recev(64)
+                    response = execute(cdm_buffer.decode())
+                    if response:
+                        client_socket.send(response.encode())
+                    cdm_buffer = b''
+                except Exception as e:
+                    print(f'Server killed {e}')
+                    self.socket.close()
+                    sys.exit
         
     def send(self):
         self.socket.connect((self.args.target, self.args.port))
