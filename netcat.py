@@ -32,27 +32,29 @@ class NetCat:
                 target=self.handle, args=(client_socket,) #passing connected socket to handle()
             )
             client_thread.start
-            
+    def handle(self, client_socket):
+        
     def send(self):
         self.socket.connect((self.args.target, self.args.port))
+        #Connect to target and port; if existing buffer, send that first
         if self.buffer:
             self.socket.send(self.buffer)
         try:
-            while True:
+            while True: #Loop to receive data from target
                 recev_len = 1
                 response = ''
                 while recev_len:
                     data = self.socket.recv(4096)
                     recev_len = len(data)
                     response += data.decode()
-                    if recev_len<4096:
+                    if recev_len<4096: #If no more data, break out of loop
                         break
-                if response:
+                if response: #If data, print response data/pause to get input and continue loop
                     print(response)
                     buffer = input('>')
                     buffer += '\n'
                     self.socket.send(buffer.encode())
-        except KeyboardInterrupt:
+        except KeyboardInterrupt: #CTRL+C to end the connection
             print('User terminated.')
             self.socket.close()
             sys.exit()
