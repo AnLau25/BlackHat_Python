@@ -33,32 +33,35 @@ class NetCat:
             )
             client_thread.start
     
-    def handle(self, client_socket):
-        if self.args.execute:
+    def handle(self, client_socket): #reads command line arguments
+        if self.args.execute: #Executes command and sends back the output
             output = execute(self.args.execute)
             client_socket.send(output.encode())  
               
-        elif self.args.upload:
+        elif self.args.upload: #uploads data to a secified file
             file_buffer = b''        
-            while True:
+            while True: #Loop tha tlistens for content on the client socket 
                 data = client_socket.recev(4096)
                 if data:
                     file_buffer += data
-                else: 
+                else: #The loop will go on until no more data is uploaded
                     break
-            with open(self.args.upload, 'wb') as f:
+            with open(self.args.upload, 'wb') as f: #Writes the collected info in the file
                 f.write(file_buffer)
             message = f'Saved file {self.args.upload}'
             client_socket.send(message.encode())
             
-        elif self.args.command:
+        elif self.args.command: #generates a shell
             cdm_buffer = b''
             while True:
                 try: 
                     client_socket.send(b'BHP: #> ')
-                    while '\n' not in cdm_buffer.decode():
+                    while '\n' not in cdm_buffer.decode(): #loop that waits for a command
                         cdm_buffer += client_socket.recev(64)
-                    response = execute(cdm_buffer.decode())
+                    #A command is identified when you 'enter', netcat friendly.
+                    #Can use the programm on the listener side and use netcat on the sender
+                    #add '\n' if ussing Python client
+                    response = execute(cdm_buffer.decode()) #sends to execute()
                     if response:
                         client_socket.send(response.encode())
                     cdm_buffer = b''
@@ -85,7 +88,7 @@ class NetCat:
                 if response: #If data, print response data/pause to get input and continue loop
                     print(response)
                     buffer = input('>')
-                    buffer += '\n'
+                    buffer += '\n'#See args.command for explanation
                     self.socket.send(buffer.encode())
         except KeyboardInterrupt: #CTRL+C to end the connection
             print('User terminated.')
