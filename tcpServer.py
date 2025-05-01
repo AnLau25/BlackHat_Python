@@ -26,5 +26,5 @@ def handle_client(client_socket): #Performs the recv() and send a message back t
         request = sock.recv(1024)
         print(f'[*] Received: {request.decode("utf-8")}')
         
-if __name__ == '___main__':
+if __name__ == '__main__':
     main()
