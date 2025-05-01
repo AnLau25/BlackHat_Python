@@ -21,6 +21,17 @@ class NetCat:
         self.buffer = buffer
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #create socket (client)
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
+        
+    def listen(self):
+        self.socket.bind((self.args.target, self.args.port)) #binds
+        self.socket.listen(5)
+        
+        while True:
+            client_socket, _ = self.socket.accept()
+            client_thread = threading.Thread(
+                target=self.handle, args=(client_socket,)
+            )
+            client_thread.start
     
     def run(self):
         if self.args.listen: #If listener, call listener method
