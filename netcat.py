@@ -140,7 +140,12 @@ if __name__ == '__main__':
 #       la -al <linux command>
 
 # 𝗧𝗲𝘀𝘁 𝟮:
-# 𝘀𝗲𝗿𝘃𝗲𝗿 → python netcat.py --t 127.0.0.1 -p 5555 -l -e="cat /etc/passwd" <one liner (shows psswd require I think)>
+# 𝘀𝗲𝗿𝘃𝗲𝗿 → python netcat.py --t 127.0.0.1 -p 5555 -l -e="cat /etc/passwd" <one liner (nc 127.0.0.1 5555)>
 # 𝗰𝗹𝗶𝗲𝗻𝘁 → python netcat.py --t 127.0.0.1 -p 5555
 #       CTRL-D 
 #       <output of server sent cdm>
+
+# 𝗧𝗲𝘀𝘁 𝟯:
+# 𝘀𝗲𝗿𝘃𝗲𝗿 → python netcat.py --t 127.0.0.1 -p 5555 -l -c <to call cdm on client>
+# 𝗰𝗹𝗶𝗲𝗻𝘁 → echo -ne "GET / HTTP/1.1\r\nHost: reachtim.com\r\n\r\n" |python ./netcat.py -t reachtim.com -p 80
+# Let's say it worked cause the issue is that it cannot reach reachtim.com
