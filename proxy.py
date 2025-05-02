@@ -10,7 +10,7 @@ HEX_FILTER = ''.join(
 
 def hexdump(src, length=16, show=True): #Displays coms between local and remote machines
     if isinstance(src,bytes):
-        src.decode() #Decodes if any byte was passed
+        src = src.decode() #Decodes if any byte was passed
     
     results = list()
     
