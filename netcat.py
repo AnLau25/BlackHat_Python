@@ -129,5 +129,10 @@ if __name__ == '__main__':
         buffer=sys.stdin.read()
     
     nc = NetCat(args, buffer.encode())
-    nc.run         
+    nc.run()       
 
+#use <ip a> to get own ip
+
+# 𝗧𝗲𝘀𝘁 𝟭:
+# 𝘀𝗲𝗿𝘃𝗲𝗿 → python netcat.py --t 127.0.0.1 -p 5555 -l -c
+# 𝗰𝗹𝗶𝗲𝗻𝘁 → python netcat.py --t 127.0.0.1 -p 5555
