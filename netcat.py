@@ -114,7 +114,7 @@ if __name__ == '__main__':
         )
     )#examples of program usage from --help
     
-    parser.add_argument('c' '--command', action='store_true', help='command shell')
+    parser.add_argument('-c', '--command', action='store_true', help='command shell')
     parser.add_argument('-e', '--execute', help='execute specified command')
     parser.add_argument('-l', '--listen', action='store_true', help='listen')
     parser.add_argument('-p', '--port', type=int, default=5555, help='specified port')
