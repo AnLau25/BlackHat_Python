@@ -8,7 +8,7 @@ import textwrap
 import threading
 
 def execute(cdm):
-    cdm = cdm.strip
+    cdm = cdm.strip()
     if not cdm:
         return
     output = subprocess.check_output(shlex.split(cdm), stderr=subprocess.STDOUT)
@@ -31,7 +31,7 @@ class NetCat:
             client_thread = threading.Thread(
                 target=self.handle, args=(client_socket,) #passing connected socket to handle()
             )
-            client_thread.start
+            client_thread.start()
     
     def handle(self, client_socket): #reads command line arguments
         if self.args.execute: #Executes command and sends back the output
@@ -68,7 +68,7 @@ class NetCat:
                 except Exception as e:
                     print(f'Server killed {e}')
                     self.socket.close()
-                    sys.exit
+                    sys.exit()
         
     def send(self):
         self.socket.connect((self.args.target, self.args.port))
