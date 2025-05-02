@@ -20,7 +20,7 @@ def hexdump(src, length=16, show=True): #Displays coms between local and remote 
         printable = word.translate(HEX_FILTER) #Substitutes the strings by the raw printable, via .translate()
         hexa = ''.join([f'{ord(c):02X}' for c in word]) #Substitutes the raw printable by hex
         hexwidth =  length*3 
-        results.append(f'{i:04x} {hexa:<{hexwidth}>} {printable}')#New array containg the hex value of the first index, the hex value of the word and the word 
+        results.append(f'{i:04x} {hexa:<{hexwidth}} {printable}')#New array containg the hex value of the first index, the hex value of the word and the word 
     if show:
         for line in results:
             print(line)
