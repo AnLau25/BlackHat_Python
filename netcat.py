@@ -136,3 +136,5 @@ if __name__ == '__main__':
 # 𝗧𝗲𝘀𝘁 𝟭:
 # 𝘀𝗲𝗿𝘃𝗲𝗿 → python netcat.py --t 127.0.0.1 -p 5555 -l -c
 # 𝗰𝗹𝗶𝗲𝗻𝘁 → python netcat.py --t 127.0.0.1 -p 5555
+#       CTRL-D <to send EOD (end of file) marker>
+#       la -al <linux command>
