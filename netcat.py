@@ -41,7 +41,7 @@ class NetCat:
         elif self.args.upload: #uploads data to a secified file
             file_buffer = b''        
             while True: #Loop tha tlistens for content on the client socket 
-                data = client_socket.recev(4096)
+                data = client_socket.recv(4096)
                 if data:
                     file_buffer += data
                 else: #The loop will go on until no more data is uploaded
@@ -57,7 +57,7 @@ class NetCat:
                 try: 
                     client_socket.send(b'BHP: #> ')
                     while '\n' not in cdm_buffer.decode(): #loop that waits for a command
-                        cdm_buffer += client_socket.recev(64)
+                        cdm_buffer += client_socket.recv(64)
                     #A command is identified when you 'enter', netcat friendly.
                     #Can use the programm on the listener side and use netcat on the sender
                     #add '\n' if ussing Python client
@@ -77,13 +77,13 @@ class NetCat:
             self.socket.send(self.buffer)
         try:
             while True: #Loop to receive data from target
-                recev_len = 1
+                recv_len = 1
                 response = ''
-                while recev_len:
+                while recv_len:
                     data = self.socket.recv(4096)
-                    recev_len = len(data)
+                    recv_len = len(data)
                     response += data.decode()
-                    if recev_len<4096: #If no more data, break out of loop
+                    if recv_len<4096: #If no more data, break out of loop
                         break
                 if response: #If data, print response data/pause to get input and continue loop
                     print(response)
