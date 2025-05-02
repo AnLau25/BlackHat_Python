@@ -134,7 +134,13 @@ if __name__ == '__main__':
 #use <ip a> to get own ip
 
 # 𝗧𝗲𝘀𝘁 𝟭:
-# 𝘀𝗲𝗿𝘃𝗲𝗿 → python netcat.py --t 127.0.0.1 -p 5555 -l -c
+# 𝘀𝗲𝗿𝘃𝗲𝗿 → python netcat.py --t 127.0.0.1 -p 5555 -l -c <to call cdm on client>
 # 𝗰𝗹𝗶𝗲𝗻𝘁 → python netcat.py --t 127.0.0.1 -p 5555
 #       CTRL-D <to send EOD (end of file) marker>
 #       la -al <linux command>
+
+# 𝗧𝗲𝘀𝘁 𝟮:
+# 𝘀𝗲𝗿𝘃𝗲𝗿 → python netcat.py --t 127.0.0.1 -p 5555 -l -e="cat /etc/passwd" <one liner (shows psswd require I think)>
+# 𝗰𝗹𝗶𝗲𝗻𝘁 → python netcat.py --t 127.0.0.1 -p 5555
+#       CTRL-D 
+#       <output of server sent cdm>
