@@ -1,10 +1,10 @@
-#technicaly, wireshark for when u don't have accces
+#technicaly, wireshark for when u don't have accces (tcp proxy)
 import sys
 import socket
 import threading
 
 HEX_FILTER = ''.join(
-    [(len(redr(chr(i)))==3) and chr(i) or '.' for i in range(256)] #If length == 3, get char, else, '.'
+    [(len(repr(chr(i)))==3) and chr(i) or '.' for i in range(256)] #If length == 3, get char, else, '.'
 )#String containing ASCII printable characters.
  #If not printable, print dot
 
