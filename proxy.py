@@ -8,13 +8,13 @@ HEX_FILTER = ''.join(
 )#String containing ASCII printable characters.
  #If not printable, print dot
 
-def hexdump(src, length=16, show=True): #Displays coms between local and remote machines
+def hexdump(src, length=16,show=True): #Displays coms between local and remote machines
     if isinstance(src,bytes):
         src = src.decode() #Decodes if any byte was passed
     
     results = list()
     
-    for i in range(0, len(src), length): #Grabs pieces of the decode and places it in word
+    for i in range(0, len(src),length): #Grabs pieces of the decode and places it in word
         word = str(src[i:i+length])
         
         printable = word.translate(HEX_FILTER) #Substitutes the strings by the raw printable, via .translate()
@@ -27,3 +27,6 @@ def hexdump(src, length=16, show=True): #Displays coms between local and remote 
     else:
         return results
     #Usefull to find user credentials in plain text protocol and understanding unkown protocols
+    
+if __name__ == "__main__":
+    hexdump("python is a language\n and Aston is a car\n")
