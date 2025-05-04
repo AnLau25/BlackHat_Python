@@ -51,7 +51,46 @@ def response_handler(buffer):
     #client modifs here
     return buffer
 
+def proxy_handdler(client_socket, remote_host, remote_port, receive_first):
+    remote_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    remote_socket.connect((remote_host, remote_port))
+    
+    if receive_first:
+        remote_buffer = receive_from(remote_socket)
+        hexdump(remote_buffer)
+    
+    remote_buffer = response_handler(remote_buffer)
+    if len(remote_buffer):
+        print("[<==] Sending %d bytes to localhost." %len(remote_buffer))
+        client_socket.send(remote_buffer)
+    
+    while True:
         
+        local_buffer = receive_from(client_socket)
+        if len(local_buffer):    
+            line = print("[==>] Received %d bytes from localhost." %len(local_buffer))
+            print(line)
+            hexdump(local_buffer)
+    
+            local_buffer = request_handler(local_buffer)
+            remote_socket.send(local_buffer)
+            print("[==>] Send to remote")
+        
+        remote_buffer =  receive_from(remote_socket)
+        if len(remote_buffer):
+            print("[<==] Received %d bytes from remote." %len(remote_buffer))
+            hexdump(remote_buffer)
+            
+            remote_buffer = response_handler(remote_buffer)
+            client_socket.send(remote_buffer)
+            print("[<==] Send to localhost")
+            
+        if not(len(local_buffer)) or not(len(remote_buffer)):
+            client_socket.close()
+            remote_socket.close()
+            print("[*] No more data. Closing connections")
+            break
+                
 if __name__ == "__main__":
     hexdump("python is a language\n and Aston is a car\n")
     
