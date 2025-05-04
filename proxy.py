@@ -28,5 +28,14 @@ def hexdump(src, length=16,show=True): #Displays coms between local and remote m
         return results
     #Usefull to find user credentials in plain text protocol and understanding unkown protocols
     
+def request_handler(buffer):
+    #client modifs here
+    return buffer
+        
+def response_handler(buffer):
+    #client modifs here
+    return buffer
+        
 if __name__ == "__main__":
     hexdump("python is a language\n and Aston is a car\n")
+    
