@@ -114,7 +114,7 @@ def server_loop(local_host, local_port, remote_host, remote_port, receive_first)
     while True: #threads 𝘱𝘳𝘰𝘹𝘺_𝘩𝘢𝘯𝘥𝘭𝘦𝘳() to catch packets at either side of the data stream
         client_socket, addr = server.accept()
         
-        #printout local connection info
+        #prints out local connection info
         line = "> Received incoming connection from %s:%d" %(addr[0], addr[1])
         print(line)
         
