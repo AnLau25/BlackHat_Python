@@ -153,3 +153,8 @@ if __name__ == "__main__":
     
         
 #some server deamons expect you to request data first, FTP for example, sends a banner first
+
+# 𝗧𝗲𝘀𝘁 𝟭:
+# 𝘀𝗲𝗿𝘃𝗲𝗿 → sudo python proxy.py 127.0.0.1 21 𝘧𝘵𝘱.𝘴𝘶𝘯.𝘢𝘤.𝘻𝘢 21 True <set the server to listen in on 𝘧𝘵𝘱.𝘴𝘶𝘯.𝘢𝘤.𝘻𝘢>
+# 𝗰𝗹𝗶𝗲𝗻𝘁 →  ftp 127.0.0.1 <start FTP session>
+# I have no connection to 𝘧𝘵𝘱.𝘴𝘶𝘯.𝘢𝘤.𝘻𝘢 ie no account, but the connection happened so aight ig
