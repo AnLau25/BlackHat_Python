@@ -160,4 +160,7 @@ if __name__ == "__main__":
 # I have no connection to 𝘧𝘵𝘱.𝘴𝘶𝘯.𝘢𝘤.𝘻𝘢 ie no account, but the connection happened so aight ig
 
 # Bridge Adapter if Wifi doesn't catch
-# Double check how secure that is later
+# Double check how secure that is later 
+    # It was that
+    # I still cannot connect due to psswrd
+    # I think it works???
