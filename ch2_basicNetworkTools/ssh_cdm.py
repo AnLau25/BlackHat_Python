@@ -15,16 +15,16 @@ def ssh_command(ip, port, user, passwd, cdm):
         for line in output:
             print(line.strip())
     
-    if __name__ == '__main__':
-        import getpass #gets current environement username
-        # user = getpass.getuser()
-        user = input('Username: ') #asks on commandline since it is diferent on both machines
-        password = getpass.getpass() #gets the password, does no display it
+if __name__ == '__main__':
+    import getpass #gets current environement username
+    # user = getpass.getuser()
+    user = input('Username: ') #asks on commandline since it is diferent on both machines
+    password = getpass.getpass() #gets the password, does no display it
         
-        ip = input('Enter server IP: ') or '192.168.1.203' #testing, could be 127.0.0.1??
-        port = input('Enter port or <CR>: ') or '2222'
-        cdm = input('Enter command or <CR>: ') or 'id'
-        ssh_command(ip, port, user, password, cdm)
+    ip = input('Enter server IP: ') or '192.168.1.203' #testing, could be 127.0.0.1??
+    port = input('Enter port or <CR>: ') or '2222'
+    cdm = input('Enter command or <CR>: ') or 'id'
+    ssh_command(ip, port, user, password, cdm)
         
         
 # 𝗣𝗮𝗿𝗮𝗺𝗶𝗸𝗼
