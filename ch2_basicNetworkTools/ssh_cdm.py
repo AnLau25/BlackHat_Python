@@ -33,3 +33,19 @@ if __name__ == '__main__':
 # 𝗡𝗼𝘁𝗮𝘀:
 # Wtf is shoulder-surfing???
     
+# 𝗦𝗦𝗛 𝗙𝗶𝘅𝗲𝘀:
+# 1. Verif SSH → 𝘴𝘶𝘥𝘰 𝘴𝘺𝘴𝘵𝘦𝘮𝘤𝘵𝘭 𝘴𝘵𝘢𝘵𝘶𝘴 𝘴𝘴𝘩
+# 2. If "Active: inactive" → 𝘴𝘶𝘥𝘰 𝘴𝘺𝘴𝘵𝘦𝘮𝘤𝘵𝘭 𝘦𝘯𝘢𝘣𝘭𝘦 --𝘯𝘰𝘸 𝘴𝘴𝘩
+# 3. Quick fixes:
+#   sudo apt install openssh-server
+#   sudo systemctl start ssh
+#   sudo systemctl enable ssh
+
+# 𝗧𝗲𝘀𝘁 𝟭:
+#   python ssh_cmd.py
+#   Username: kali
+#   Password: 
+#   Enter server IP: 127.0.0.1
+#   Enter port or <CR>: 22
+#   Enter command or <CR>: ip
+
