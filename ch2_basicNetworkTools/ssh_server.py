@@ -36,3 +36,17 @@ if __name__ == '__main__':
         print('[-] Listen failed:' + str(e))
     else:
         print('[+] Got a connection!', client, addr)
+        
+    bhSession = paramiko.Transport(client)
+    bhSession.add_server_key(HOSTKEY)
+    server = Server()
+    bhSession.start_server(server=server)
+    
+    chan = bhSession.accept(20)
+    if chan is None:
+        print('**** No Channel')
+        sys.exit(1)
+    
+    print('[+] Authenticated')
+    print(chan.recv(1024))
+    chan.send('Welcome to bh_ssh')
