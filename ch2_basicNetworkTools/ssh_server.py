@@ -20,7 +20,7 @@ class Server (paramiko.ServerInterface): # SSH-inization of socket
     
     def check_auth_password(self, username, password):
         if (username=='kali' and (password=='kali')): # Are we really hard coding this?
-            return paramiko.AUTH_SUCCESSFULL
+            return paramiko.AUTH_SUCCESSFUL
 
 if __name__ == '__main__':
     server = '127.0.0.1'
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     
     try:
         sock =  socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.setsockpt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.bind((server, ssh_port))# Socket listener, the usual
         sock.listen(100)
         print('[+] Listening for connection...')
