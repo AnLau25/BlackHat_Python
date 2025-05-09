@@ -23,4 +23,16 @@ class Server (paramiko.ServerInterface):
 
 if __name__ == '__main__':
     server = '127.0.0.1'
+    ssh_port = 2222
     
+    try:
+        sock =  socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.setsockpt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        sock.bind((server, ssh_port))
+        sock.listen(100)
+        print('[+] Listening for connection...')
+        client, addr = sock.accept()
+    except Exception as e:
+        print('[-] Listen failed:' + str(e))
+    else:
+        print('[+] Got a connection!', client, addr)
