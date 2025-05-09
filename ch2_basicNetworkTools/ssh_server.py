@@ -54,10 +54,10 @@ if __name__ == '__main__':
     try:
     # any command typed into the ssh server will be sent to and executed by the client 𝘴𝘴𝘩_𝘳𝘤𝘮𝘥.𝘱𝘺
         while True:
-            command= input('Enter command')
+            command= input('Enter command: ')
             if command != 'exit':
                 chan.send(command)
-                r = chan.recv(8192)
+                r = chan.recv(8192) # try again with 1024 for clarity??
                 print(r.decode())
             else:
                 chan.send('exit')
