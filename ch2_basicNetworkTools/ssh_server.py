@@ -40,8 +40,8 @@ if __name__ == '__main__':
         
     bhSession = paramiko.Transport(client)# auth method configuration
     bhSession.add_server_key(HOSTKEY)
-    server = Server()
-    bhSession.start_server(server=server)
+    ssh_server = Server()
+    bhSession.start_server(server=ssh_server)
     
     chan = bhSession.accept(20)
     if chan is None:
