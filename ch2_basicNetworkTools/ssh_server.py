@@ -20,4 +20,7 @@ class Server (paramiko.ServerInterface):
     def check_auth_password(self, username, password):
         if (username=='kali' and (password=='kali')): # Are we really hard coding this?
             return paramiko.AUTH_SUCCESSFULL
-        
+
+if __name__ == '__main__':
+    server = '127.0.0.1'
+    
