@@ -50,3 +50,18 @@ if __name__ == '__main__':
     print('[+] Authenticated')
     print(chan.recv(1024))
     chan.send('Welcome to bh_ssh')
+    try:
+        while True:
+            command= input('Enter command')
+            if command != 'exit':
+                chan.send(command)
+                r = chan.recv(8192)
+                print(r.decode())
+            else:
+                chan.send('exit')
+                print('exiting')
+                bhSession.close()
+                break                
+    except KeyboardInterrupt:
+        bhSession.close()
+        
