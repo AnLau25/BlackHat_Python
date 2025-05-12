@@ -9,14 +9,14 @@
 
 # 𝗣𝗮𝗿𝗮𝗺𝗶𝗸𝗼 𝗿𝗳𝗼𝗿𝘄𝗮𝗿𝗱 (forward tunneling)
 def main():
-    options, server, remote = parse_options()
+    options, server, remote = parse_options() # Double check to make sure all the necessary arguments are passed before connection
 
     password = None
     if options.readpass:
         password = getpass.getpass("Enter SSH password: ")
 
-    client = paramiko.SSHClient()
-    client.load_system_host_keys()
+    client = paramiko.SSHClient() # Paramiko client connection
+    client.load_system_host_keys()  
     client.set_missing_host_key_policy(paramiko.WarningPolicy())
 
     verbose("Connecting to ssh host %s:%d ..." % (server[0], server[1]))
@@ -38,7 +38,7 @@ def main():
         % (options.port, remote[0], remote[1])
     )
 
-    try:
+    try: # try calling server tunnel
         reverse_forward_tunnel(
             options.port, remote[0], remote[1], client.get_transport()
         )
