@@ -62,6 +62,7 @@ def reverse_forward_tunnel(server_port, remote_host, remote_port, transport):
         thr.setDaemon(True)
         thr.start()
 
+# In charge of coms, ie, sends and receives data
 def handler(chan, host, port):
     sock = socket.socket()
     try:
@@ -74,7 +75,7 @@ def handler(chan, host, port):
         "Connected!  Tunnel open %r -> %r -> %r"
         % (chan.origin_addr, chan.getpeername(), (host, port))
     )
-    while True:
+    while True: # coms loop
         r, w, x = select.select([sock, chan], [], [])
         if sock in r:
             data = sock.recv(1024)
