@@ -46,14 +46,19 @@ def main():
         print("C-c: Port forwarding stopped.")
         sys.exit(0)
         
+# 𝗣𝗮𝗿𝗮𝗺𝗶𝗸𝗼 𝗵𝗮𝘀 𝘁𝘄𝗼 𝗺𝗮𝗶𝗻 𝘁𝗿𝗮𝗻𝘀𝗽𝗼𝗿𝘁 𝗺𝗲𝘁𝗵𝗼𝗱𝘀
+# 𝗧𝗿𝗮𝗻𝘀𝗽𝗼𝗿𝘁: Makes and maintanins the incripted connection      
+# 𝗖𝗵𝗮𝗻𝗻𝗲𝗹: Acts as a socket to receive and send data over the transport session
+
 def reverse_forward_tunnel(server_port, remote_host, remote_port, transport):
-    transport.request_port_forward("", server_port)
+    transport.request_port_forward("", server_port) # Start with a forward TCP connection from 𝘴𝘦𝘳𝘷𝘦𝘳_𝘱𝘰𝘳𝘵 
     while True:
-        chan = transport.accept(1000)
+        chan = transport.accept(1000) # Start new transport channel
         if chan is None:
             continue
         thr = threading.Thread(
-            target=handler, args=(chan, remote_host, remote_port)
+            target=handler, args=(chan, remote_host, remote_port) # call handler over the channel
         )
         thr.setDaemon(True)
         thr.start()
+
