@@ -51,3 +51,9 @@ if __name__ == '__main__':
     main()
     
 
+# 𝗧𝗲𝘀𝘁 𝟭:
+# 𝗰𝗼𝗺𝗽 𝟭 → python sniffer.py <call the sniffer on windows or linux>
+# 𝗰𝗼𝗺𝗽 𝟮 → ping nostarch.com <for example, could be anything else>
+# 𝗖𝗼𝗺𝗽 𝟭 will capture the ping request made by 𝗖𝗼𝗺𝗽 𝟮:
+#   - In windows, it shows the IP
+#   - In Linux, the response will come from nostarch.com
