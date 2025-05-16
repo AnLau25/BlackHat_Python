@@ -90,3 +90,14 @@ def handler(chan, host, port):
     chan.close()
     sock.close()
     verbose("Tunnel closed from %r" % (chan.origin_addr,))
+    
+# 𝗧𝗲𝘀𝘁 𝟭:
+# Download rforward.py from Paramiko's git
+# 𝗰𝗹𝗶𝗲𝗻𝘁 (𝘸𝘪𝘯𝘥𝘰𝘸𝘴) → python rforward.py 127.0.0.1 -p 8081 -r 192.168.1.207:3000 --user=kali --password
+#                   Enter SSH password:
+#                   Connecting to ssh host 127.0.0.1:22 ...
+#                   Now forwarding remote port 8081 to 192.168.1.207:3000 ... 
+# 𝘀𝗲𝗿𝘃𝗲𝗿 (𝘬𝘢𝘭𝘪) → http://localhost:8081 → 192.168.1.207:3000 
+# ie, the server goes to the addres we want, through it's own address
+
+# kept getting "*** Failed to connect to 127.0.0.1:22: NoValidConnectionsError(None, 'Unable to connect to port 22 on 127.0.0.1')"
