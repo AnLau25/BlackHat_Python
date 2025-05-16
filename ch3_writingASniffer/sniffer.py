@@ -30,7 +30,7 @@ def main():
     sniffer = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket_protocol)
     sniffer.bind((HOST, 0))
     #Also capture IP header
-    sniffer.setsockopt(socket.IPPROTO_IP, socket.OP_HDRINCL, 1)
+    sniffer.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
     
     #If windows, send IOCTL to activate promicuous mode
     #It usually gives a warning but since I'm the one testing... ¯\_(ツ)_/¯
@@ -40,14 +40,14 @@ def main():
     #Requires Windows admin/Linux root privileges
     
     #Reads a single packet ie the sniffing
+    #Could add 𝘸𝘩𝘪𝘭𝘦 𝘛𝘳𝘶𝘦: for multiple runs
     print(sniffer.recvfrom(65565))
     
     #Turn off promiscuous mode (still for windows)
     if os.name == 'nt':
         sniffer.ioctl(socket.SIO_RCVALL, socket.RCVALL_OFF)
     
-    if __name__ == '__main__':
-        main()
+if __name__ == '__main__':
+    main()
     
 
-  
