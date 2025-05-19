@@ -4,8 +4,8 @@ from ctypes import *
 import socket
 import struct
 
-class IP(Structure):
-    _fields_ = [
+class IP(Structure): # Inherits from Sructure (specifies we must have _fields_)
+    _fields_ = [                        # Defines each part of the IP header in cTypes:
         ("version",      c_ubyte,  4),  # 4 bit unsigned char
         ("ihl",          c_ubyte,  4),  # 4 bit unsigned char
         ("tos",          c_ubyte,  8),  # 1 byte char
@@ -18,4 +18,14 @@ class IP(Structure):
         ("src",          c_ushort, 32), # 4 byte unsigned char
         ("dst",          c_ubyte,  32)  # 4 byte unsigned char
     ]
+    
+    def __new__(cls, socket_buffer = None):
+        return cls.from_buffer_copy(socket_buffer)
+    
+    def __init__(self, socket_buffer = None):
+        # Human readable IP
+        self.src_address = socket.inet_ntoa(struct.pack("<L",self.src))
+        self.dst_address = socket.inet_ntoa(struct.pack("<L", self.dst))
+        
+        
     
