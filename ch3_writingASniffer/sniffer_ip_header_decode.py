@@ -2,4 +2,8 @@
 #   Ctypes module:  Foreign python library providing a bridge to c-based languages. This enables u to use c-compatible data types and call functions in shared libraries. 
 #                   Ie, main for data types and additional funtionalities.
 #   Struct module: Converts between python values and C structs represented as python byte objs. Ie main for handdling binary data. 
+#   - Regardless of which one is used, the IP class of each parse can be instancsiated as: 
+#       apacket = IP(buff) 
+#       print(f'{apacket.src_address} -> {apacket.dst_address}')
+
 
