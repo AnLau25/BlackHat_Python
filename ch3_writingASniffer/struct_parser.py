@@ -5,7 +5,18 @@ import struct
 class IP:
     def __init__(self, buff=None):
         header = struct.unpack('<BBHHHBBH4s4s', buff)
+        # '<' 𝗶𝗻𝗱𝗶𝗰𝗮𝘁𝗲𝘀 𝗲𝗻𝗱𝗶𝗮𝗻𝗲𝘀𝘀 (pos of most significant byte) — 𝘭𝘪𝘵𝘵𝘭𝘦 𝘦𝘯𝘥𝘪𝘢𝘯 in this case (ie most significant at the front)
+        # The rest represnet the individual parts of the IP
+        # The struct modules identifies teh data types as follow:
+        #   - 𝗕 for "1-byte unsigned char"
+        #   - 𝗛 for "2-byte unsigned short" 
+        #   - 𝘀 for "a string byte of a specified width", 4 in this case
+        #   - Note: strcut does not have 𝘯y𝘣𝘣𝘭𝘦 (4-bit data unit) 
+        
+        # manippulate ver and ihl to get 4-bit
+        # right shift the byte by 4, 𝘩𝘪𝘨𝘩-𝘰𝘳𝘥𝘦𝘳 𝘯𝘺𝘣𝘣𝘭𝘦
         self.ver = header[0] >> 4
+        # ANDs with 00001111 leaving all 4 last bits unaltered, 𝘭𝘰𝘸-𝘰𝘳𝘥𝘦𝘳 𝘯𝘺𝘣𝘣𝘭𝘦 
         self.ihl = header[0] & 0xF
         
         self.tos = header[1]
