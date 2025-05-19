@@ -19,13 +19,13 @@ class IP(Structure): # Inherits from Sructure (specifies we must have _fields_)
         ("dst",          c_ubyte,  32)  # 4 byte unsigned char
     ]
     
-    def __new__(cls, socket_buffer = None):
+    def __new__(cls, socket_buffer = None): # Creates and returns a 𝘐𝘗 obj
         return cls.from_buffer_copy(socket_buffer)
     
-    def __init__(self, socket_buffer = None):
+    def __init__(self, socket_buffer = None): 
         # Human readable IP
-        self.src_address = socket.inet_ntoa(struct.pack("<L",self.src))
+        self.src_address = socket.inet_ntoa(struct.pack("<L",self.src)) # Create sthe IP obj and calls __𝘯𝘦𝘸__ on the back to fill out _𝘧𝘪𝘦𝘭𝘥𝘴_
         self.dst_address = socket.inet_ntoa(struct.pack("<L", self.dst))
         
-        
-    
+# 𝗡𝗼𝘁𝗲:
+#   As long as the structure has been defined beforehand, you can just pass the external network packet data to  __𝘯𝘦𝘸__ and the _𝘧𝘪𝘦𝘭𝘥𝘴_ will aoear as the obj's attributes
