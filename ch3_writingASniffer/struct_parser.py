@@ -45,3 +45,7 @@ class ICMP:
         self.sum = header[2]
         self.id = header[3]
         self.seq = header[4]
+    # 𝘌𝘢𝘤𝘩 𝘱𝘰𝘳𝘵𝘪𝘰𝘯 𝘰𝘧 𝘵𝘩𝘦 𝘐𝘊𝘔𝘗 𝘔𝘦𝘴𝘴𝘢𝘨𝘦 is a m͟u͟l͟t͟i͟p͟l͟e o͟f ͟8 b͟i͟t͟s
+    # The 𝘧𝘰𝘳𝘮𝘢𝘵 𝘤𝘩𝘢𝘳𝘢𝘤𝘵𝘦𝘳𝘴 𝘱𝘳𝘰𝘷𝘪𝘥𝘦𝘥 𝘣𝘺 𝘴𝘵𝘳𝘶𝘤𝘵 are m͟u͟l͟t͟i͟p͟l͟e͟s o͟f ͟8 b͟i͟t͟s
+    # Thus, 𝗻𝗼 𝗻𝗲𝗲𝗱 𝘁𝗼 𝘀𝗽𝗹𝗶𝘁 𝘁𝗵𝗲 𝗯𝘆𝘁𝗲𝘀 into separate nybbles 
+    # So, 1-byte for the first two and 2-byte for the rest "BBHHH"
