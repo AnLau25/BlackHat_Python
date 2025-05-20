@@ -64,5 +64,12 @@ def sniff(host):
         # if on windows, turn off promiscuous mode
         if os.name=='nt':
             sniff.ioctl(socket.SIO_RCVALL, socket.RCVALL_OFF)
-        sys.exit();
+        sys.exit()
+        
+if __name__=='__main__':
+    if len(sys.argv) == 2:
+        host = sys.argv[1]
+    else: 
+        host = '192.168.1.203'
+    sniff(host)
     
