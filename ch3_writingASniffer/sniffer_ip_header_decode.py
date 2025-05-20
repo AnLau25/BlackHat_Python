@@ -52,7 +52,7 @@ def sniff(host):
     if os.name == 'nt':
         sniffer.setsockopt(socket.SIO_RCVALL, socket.RCVALL_ON)
     
-    try:
+    try: # loop to continually read incomming packets and parse their info
         while True:
             # read packet
             raw_buffer = sniffer.recvfrom(65535)
@@ -70,6 +70,6 @@ if __name__=='__main__':
     if len(sys.argv) == 2:
         host = sys.argv[1]
     else: 
-        host = '192.168.1.203'
+        host = '127.0.0.1' # my IP 
     sniff(host)
     
