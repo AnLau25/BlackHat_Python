@@ -23,7 +23,7 @@ class IP:
         self.id = header[3]
         self.offset = header[4]
         self.ttl = header[5] 
-        self.protocol = header[6]
+        self.protocol_num = header[6]
         self.sum = header[7]
         self.src = header[8]
         self.dst = header[9]
@@ -34,3 +34,35 @@ class IP:
         
         # map control constants to their names
         self.protocol_map = {1: "ICMP", 6: "TCP", 17: "UDP"}
+        try:
+            self.protocol = self.protocol_map[self.protocol_num]
+        except Exception as e:
+            print('%s No protocol for %s' % (e, self.protocol_num))
+
+def sniff(host):
+    if os.name == 'nt':
+        socket_protocol = socket.IPPROTO_IP
+    else:
+        socket_protocol = socket_IPPROTO_ICMP
+    
+    sniffer = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket_protocol)
+    sniffer.bind((host, 0)) # double parentheses caus ur pasing (host, port) as a touple
+    sniffer.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
+    
+    if os.name == 'nt':
+        sniffer.setsockopt(socket.SIO_RCVALL, socket.RCVALL_ON)
+    
+    try:
+        while True:
+            # read packet
+            raw_buffer = sniffer.recvfrom(65535)
+            # create an IP header from the first 20 bytes
+            ip_header = IP(raw_buffer[0:20])
+            # print the detected protocol and hosts
+            print('Protocol: %s %s -> %s' % ip_header.protocol, ip_header.src_address, ip_header.dst_address)
+    except KeyboardInterrupt:
+        # if on windows, turn off promiscuous mode
+        if os.name=='nt':
+            sniff.ioctl(socket.SIO_RCVALL, socket.RCVALL_OFF)
+        sys.exit();
+    
