@@ -72,4 +72,5 @@ if __name__=='__main__':
     else: 
         host = '127.0.0.1' # my IP 
     sniff(host)
-    
+
+# python3 sniffer_ip_header_decode.py
