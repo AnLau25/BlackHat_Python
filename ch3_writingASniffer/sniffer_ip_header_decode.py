@@ -55,7 +55,7 @@ def sniff(host):
     try: # loop to continually read incomming packets and parse their info
         while True:
             # read packet
-            raw_buffer = sniffer.recvfrom(65535)
+            raw_buffer = sniffer.recvfrom(65535)[0]
             # create an IP header from the first 20 bytes
             ip_header = IP(raw_buffer[0:20])
             # print the detected protocol and hosts
