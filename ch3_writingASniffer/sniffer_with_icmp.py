@@ -101,3 +101,11 @@ if __name__=='__main__':
     else: 
         host = '10.0.2.15' # my IP 
     sniff(host)
+    
+# Output:⁡⁢⁣⁢*⁡
+# Protocol: ICMP 142.250.217.238 -> 10.0.2.15
+# Version: 4
+# Header Length: 5 TTL: 116
+# ICMP -> Type: 0 Code: 0
+# ⁡⁢⁣⁢*⁡Note: This captures everithing, we get 0 cause "ping google.com" (ICMP Echo) is what we're testing on
+# 𝘛𝘦𝘴𝘵𝘦𝘥 𝘰𝘯 𝘓𝘪𝘯𝘶𝘹
