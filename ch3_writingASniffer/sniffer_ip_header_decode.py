@@ -50,7 +50,7 @@ def sniff(host):
     sniffer.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
     
     if os.name == 'nt':
-        sniffer.setsockopt(socket.SIO_RCVALL, socket.RCVALL_ON)
+        sniffer.setsockopt(socket.SIO_RCVALL, socket.RCVALL_ON, 1)
     
     try: # loop to continually read incomming packets and parse their info
         while True:
