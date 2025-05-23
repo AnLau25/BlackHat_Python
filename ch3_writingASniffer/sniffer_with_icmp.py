@@ -78,8 +78,10 @@ def sniff(host):
                 print(f'Version: {ip_header.ver}')
                 print(f'Header Length: {ip_header.ihl} TTL: {ip_header.ttl}')
                 
-                # Calculate where the ICMP starts
-                offset = ip_header.ihl * 4
+                # Calculate where the ICMP starts and create a buffer
+                offset = ip_header.ihl * 4 # Length calculate the offset in the raw packet based on the ip_header length
+                # ihl indicates the number of 32-bit words (4-byte chuncks in the IP)
+                # By multiplying by 4 we get the size of the IP, so where the next network layer begins (ICMP in this case)
                 buf = raw_buffer[offset:offset + 8]
                 # Create ICMP structure
                 icmp_header = ICMP(buf)
