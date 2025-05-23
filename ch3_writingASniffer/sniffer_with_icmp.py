@@ -73,7 +73,7 @@ def sniff(host):
             # create an IP header from the first 20 bytes
             ip_header = IP(raw_buffer[0:20])
             
-            if ip_header == "ICMP": # If protocol ICMP → decode
+            if ip_header.protocol == "ICMP": # If protocol ICMP → decode
                 print('Protocol: %s %s -> %s' % (ip_header.protocol, ip_header.src_address, ip_header.dst_address))
                 print(f'Version: {ip_header.ver}')
                 print(f'Header Length: {ip_header.ihl} TTL: {ip_header.ttl}')
