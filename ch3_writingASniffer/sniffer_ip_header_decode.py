@@ -72,5 +72,23 @@ if __name__=='__main__':
     else: 
         host = '127.0.0.1' # my IP 
     sniff(host)
+    
+#𝗟𝗶𝗻𝘂𝘅
+#sudo python3 sniffer_ip_header_decode.py
+#ping google.com <on a diff tab>
+#Output (ICMP only due to Linux coms):
+# Protocol: ICMP 172.217.3.78 -> 10.0.2.15
+# Protocol: ICMP 172.217.3.78 -> 10.0.2.15
+# Protocol: ICMP 172.217.3.78 -> 10.0.2.15
+# Protocol: ICMP 172.217.3.78 -> 10.0.2.15
+# Protocol: ICMP 172.217.3.78 -> 10.0.2.15
 
-# python3 sniffer_ip_header_decode.py
+
+#𝗪𝗶𝗻𝗱𝗼𝘄𝘀 -> store in System32 to run as admin (bad practice but... ε( · — ·)ɜ)
+#python sniffer_ip_header_decode.py
+#Output:
+# Protocol: UDP 10.0.2.15 -> 192.168.4.1
+# Protocol: UDP 10.0.2.15 -> 192.168.4.1
+# Protocol: UDP 192.168.4.1 -> 10.0.2.15
+# Protocol: UDP 192.168.4.1 -> 10.0.2.15
+# Protocol: TCP 10.0.2.15 -> 13.107.246.41
