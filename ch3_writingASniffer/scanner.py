@@ -47,8 +47,8 @@ class ICMP:
         self.id = header[3]
         self.seq = header[4]
 
-# Sprays the datgrams with the msg
-def udp_sender():
+# Sprays the UDP datgrams with the msg
+def udp_sender(): # Iterates through the subnet IPs and sends datagrams
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sender:
         for ip in ipaddress.ip_network(SUBNET).hosts:
             sender.sendto(bytes(MESSAGE, 'utf8'), (str(ip), 65212))
@@ -90,20 +90,20 @@ class Scanner:
                     if icmp_header.code == 3 and icmp_header.type == 3:
                         if ipaddress.ip_address(ip_header.src_address) in ipaddress.IPv4Network(SUBNET):
                             
-                            #Make sure it is responding to 𝘮𝘺 UDP message
+                            #Make sure it is responding to 𝘮𝘺 UDP message "La33" in this case
                             if raw_buffer[len(raw_buffer) - len(MESSAGE)] == bytes(MESSAGE, 'utf8'):
                                 tgt = str(ip_header.src_address)
                                 if tgt!=self.host and tgt not in hosts_up:
                                     hosts_up.add(str(ip_header.src_address))
-                                    print(f'Host Up: {tgt}') 
+                                    print(f'Host Up: {tgt}') # Printout the adr of the discovered host
                         
         except KeyboardInterrupt:
             # if on windows, turn off promiscuous mode
             if os.name=='nt':
                 self.socket.ioctl(socket.SIO_RCVALL, socket.RCVALL_OFF)
-            
             print('\nUser interrupted.')
-            if hosts_up:
+            
+            if hosts_up: # Printout sorted list of all discovered hosts
                 print(f'\n\nSummary: Hosts up on {SUBNET}')
                 for host in sorted(hosts_up):
                     print(f'{host}')
@@ -117,6 +117,6 @@ if __name__=='__main__':
         host = '10.0.2.15' # my IP 
     s = Scanner(host)
     time.sleep(5)
-    t = threading.Thread(target=udp_sender)
-    t.start()
+    t = threading.Thread(target=udp_sender) 
+    t.start() # Sends datagrams on a separate thread so it does not interfere with the sniffing
     s.sniff()
