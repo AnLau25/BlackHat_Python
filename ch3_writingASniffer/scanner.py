@@ -7,7 +7,7 @@ import sys
 import os
 
 # Targeted subnet, subject change based on host IP
-SUBNET = '10.0.0.0/24'
+SUBNET = '192.168.1.0'
 # String to check for in ICMP
 MESSAGE = 'La33'
 
@@ -50,7 +50,7 @@ class ICMP:
 # Sprays the UDP datgrams with the msg
 def udp_sender(): # Iterates through the subnet IPs and sends datagrams
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sender:
-        for ip in ipaddress.ip_network(SUBNET).hosts:
+        for ip in ipaddress.ip_network(SUBNET).hosts():
             sender.sendto(bytes(MESSAGE, 'utf8'), (str(ip), 65212))
 class Scanner:
     def __init__(self, host):
