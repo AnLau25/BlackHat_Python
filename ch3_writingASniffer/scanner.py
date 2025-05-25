@@ -4,6 +4,11 @@ import socket
 import struct
 import sys
 
+# Targeted subnet, may change
+SUBNET = '192.168.1.0/24'
+# String to check for in ICMP
+MESSAGE = 'La33'
+
 class IP:
     def __init__(self, buff=None):
         header = struct.unpack('<BBHHHBBH4s4s', buff)
@@ -39,6 +44,11 @@ class ICMP:
         self.sum = header[2]
         self.id = header[3]
         self.seq = header[4]
+
+def udp_sender():
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sender:
+        for ip in ipaddress.ip_network(SUBNET).hosts:
+            sender.sendto(bytes(MESSAGE, 'utf8'), (str(ip), 65212))
 
 def sniff(host):
     if os.name == 'nt':
