@@ -1,8 +1,10 @@
 import ipaddress
-import os
+import threading
 import socket
 import struct
+import time
 import sys
+import os
 
 # Targeted subnet, may change
 SUBNET = '192.168.1.0/24'
@@ -113,4 +115,8 @@ if __name__=='__main__':
         host = sys.argv[1]
     else: 
         host = '10.0.2.15' # my IP 
-    sniff(host)
+    s = Scanner(host)
+    time.sleep(5)
+    t = threading.Thread(target=udp_sender)
+    t.start()
+    s.sniff()
