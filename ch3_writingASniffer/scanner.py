@@ -6,8 +6,8 @@ import time
 import sys
 import os
 
-# Targeted subnet, may change
-SUBNET = '192.168.1.0/24'
+# Targeted subnet, subject change based on host IP
+SUBNET = '10.0.0.0/24'
 # String to check for in ICMP
 MESSAGE = 'La33'
 
