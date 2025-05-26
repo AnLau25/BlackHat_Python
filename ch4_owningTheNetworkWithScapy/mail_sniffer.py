@@ -11,10 +11,11 @@ def packet_callback0(packet):
     print(packet.show())
     
 def packet_callback(packet):
-    if packet[TCP].payload:
-        package = str(packet[TCP].payload)
-        if 'user' in package.lower() or 'pass' in package.lower():
-            print(f"[*] Destination: {packet[IP].dst}")
+    if packet[TCP].payload: # check that it 𝘩𝘢𝘴 data payload
+        package = str(packet[TCP].payload) 
+        if 'user' in package.lower() or 'pass' in package.lower(): # check if the payload has the 'user' and 'pass' cmds
+            # If auth detected, print out destination and data bytes
+            print(f"[*] Destination: {packet[IP].dst}") 
             print(f"[*] {str(packet[TCP].payload)}")
 
 def main():
@@ -28,7 +29,9 @@ def main():
     # 𝘤𝘰𝘶𝘯𝘵=1 -> especifica cuantos paquetes to sniff, blank==indefinidamente (until Ctrl+C)
     
     sniff(filter= 'tcp port 110 or tcp port 25 or tcp 143',prn=packet_callback, store=0)
-    # getting TCP paquets from two way traffic for ports 110, 25 and 143
+    # getting TCP paquets from two way traffic for ports 110 (POP3), 25 (SMTP) and 143 (IMAP)
+    # The ports for the protocols we were looking for (related to mailing)
+    # 𝘴𝘵𝘰𝘳𝘦=0 -> Ensure that scapy does not keep the packets in mem (𝗯𝗲𝘀𝘁 𝗽𝗿𝗮𝗰𝘁𝗶𝗰𝗲 𝗳𝗼𝗿 𝗹𝗼𝗻𝗴 𝘁𝗲𝗿𝗺 𝘀𝗻𝗶𝗳𝗳𝗶𝗻𝗴)
 
 if __name__=="__main__":
     main()
