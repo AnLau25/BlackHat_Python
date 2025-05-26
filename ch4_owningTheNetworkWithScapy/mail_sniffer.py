@@ -28,7 +28,7 @@ def main():
     # 𝘱𝘳𝘯=𝘱𝘢𝘤𝘬𝘦𝘵_𝘤𝘢𝘭𝘭𝘣𝘢𝘤𝘬 -> specifies the function to call when a packet is found. The packet is passed as a single argument
     # 𝘤𝘰𝘶𝘯𝘵=1 -> especifica cuantos paquetes to sniff, blank==indefinidamente (until Ctrl+C)
     
-    sniff(filter= 'tcp port 110 or tcp port 25 or tcp 143',prn=packet_callback, store=0)
+    sniff(filter= 'tcp port 110 or tcp port 25 or tcp port 143',prn=packet_callback, store=0)
     # getting TCP paquets from two way traffic for ports 110 (POP3), 25 (SMTP) and 143 (IMAP)
     # The ports for the protocols we were looking for (related to mailing)
     # 𝘴𝘵𝘰𝘳𝘦=0 -> Ensure that scapy does not keep the packets in mem (𝗯𝗲𝘀𝘁 𝗽𝗿𝗮𝗰𝘁𝗶𝗰𝗲 𝗳𝗼𝗿 𝗹𝗼𝗻𝗴 𝘁𝗲𝗿𝗺 𝘀𝗻𝗶𝗳𝗳𝗶𝗻𝗴)
@@ -45,3 +45,15 @@ if __name__=="__main__":
 # 𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗼𝗿 -> what your are looking for ie: 𝘩𝘰𝘴𝘵, 𝘯𝘦𝘵, 𝘱𝘰𝘳𝘵
 # 𝗗𝗶𝗿𝗲𝗰𝘁𝗶𝗼𝗻 𝗼𝗳 𝘁𝗿𝗮𝘃𝗲𝗹 -> direction of travel: 𝘴𝘳𝘤, 𝘥𝘴𝘵, src and dst
 # 𝗣𝗿𝗼𝘁𝗼𝗰𝗼𝗹 -> Protocol used to send traffic: 𝘪𝘱, 𝘪𝘱6, 𝘵𝘤𝘱, 𝘶𝘥𝘱
+
+# 𝗧𝗼 𝘁𝗲𝘀𝘁 𝘀𝗶𝗺𝘂𝗹𝗮𝘁𝗶𝗻𝗴 𝗺𝗮𝗶𝗹:
+# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ED65462EC8D5E4C5
+# sudo apt install dovecot-core dovecot-pop3d postfix
+# sudo nano /etc/dovecot/conf.d/10-auth.conf ⁡⁢⁣⁢(LAB ONLY)⁡
+    # disable_plaintext_auth = no ⁡⁢⁣⁢(Turn back to 'yes' when done)⁡
+    # Ctrl+O Enter Ctrl+X
+# sudo systemctl restart dovecot
+# telnet localhost 110
+    # USER testuser
+    # PASS testpass
+# sudo python3 mail_sniffer.py <on diff tab>
