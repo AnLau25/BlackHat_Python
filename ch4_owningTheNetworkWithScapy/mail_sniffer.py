@@ -10,6 +10,11 @@ def packet_callback(packet):
 
 def main():
     sniff(prn=packet_callback, count=1)
+    # sniff has 𝟰 𝗽𝗮𝗿𝗮𝗺𝗲𝘁𝗲𝗿𝘀 (but we only ussing 2)
+    # 𝘧𝘪𝘭𝘵𝘦𝘳="" -> allows the usser to specify Berckley Packet Filter (BPF) to filter through sniffed packets
+    # 𝘪𝘧𝘢𝘤𝘦="" -> tells teh sniffer what network interface to sniff on, blanck==all interfaces
+    # 𝘱𝘳𝘯=𝘱𝘢𝘤𝘬𝘦𝘵_𝘤𝘢𝘭𝘭𝘣𝘢𝘤𝘬 -> specifies the function to call when a packet is found. The packet is passed as a single argument
+    # 𝘤𝘰𝘶𝘯𝘵=1 -> especifica cuantos paquetes to sniff, blank==indefinidamente (until Ctrl+C)
 
 if __name__=="__main__":
     main()
