@@ -5,3 +5,10 @@
 # To do so, we poison the ARP cache of both points and masks ourself with their MACs (Media Acces Control) address
 # The MAC is assigned based on the local network IP of the machine
 # 𝘪𝘱 𝘯𝘦𝘪𝘨𝘩 𝘴𝘩𝘰𝘸 <to see ARP cache in linux>
+# sudo arp -a <works too>
+
+import os
+import sys
+import time
+from multiprocessing import Process
+from scapy.all import (ARP, Ether, conf, get_if_hwaddr, send, sniff, sndrcv, srp, wrpcap)
