@@ -12,3 +12,19 @@ import sys
 import time
 from multiprocessing import Process
 from scapy.all import (ARP, Ether, conf, get_if_hwaddr, send, sniff, sndrcv, srp, wrpcap)
+
+class Arper:
+    def __init__(self, victim, gateway, interface = 'eth0'):
+        pass
+    
+    def run(self):
+        pass
+    
+    def poison(self):
+        pass
+    
+    def sniff():
+        pass
+    
+    def restore(self):
+        pass
