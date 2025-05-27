@@ -13,6 +13,13 @@ import time
 from multiprocessing import Process
 from scapy.all import (ARP, Ether, conf, get_if_hwaddr, send, sniff, sndrcv, srp, wrpcap)
 
+def get_mac(targetship):
+    packet = Ether(dst = 'ff:ff:ff:ff:ff:ff')/ARP(op="who-has", pdst=targetship)
+    resp, _ = srp(packet, timeout=2, retry=0, verbose=False)
+    for _, r in resp:
+        return r[Ether].src
+    return None 
+
 class Arper:
     def __init__(self, victim, gateway, interface = 'eth0'):
         pass
