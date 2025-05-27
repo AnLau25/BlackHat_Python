@@ -28,3 +28,8 @@ class Arper:
     
     def restore(self):
         pass
+    
+if __name__ == '__main__':
+    (victim, gateway, interface) = (sys.argv[1], sys.argv[2], sys.argv[3])
+    arpoon = Arper(victim, gateway, interface)
+    arpoon.run()
