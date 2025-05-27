@@ -85,7 +85,7 @@ class Arper:
                 self.restore()
                 sys.exit()
             else:
-                time.sleep()
+                time.sleep(2)
         
     def sniff(self, count=100):
         time.sleep(5) # Wait five
