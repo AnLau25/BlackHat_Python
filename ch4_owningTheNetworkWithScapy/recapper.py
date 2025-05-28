@@ -15,8 +15,24 @@ PCAPS = '/root/Downloads' # To be determined
 # contains attributes
 Response = namedtuple('Response', ['header', 'payload'])
 
+# Takes raw HTTP trafic and return headers
 def get_header(payload):
-    pass
+    try:
+        header_raw = payload[:payload.index(b'\r\n\r\n')+2] 
+        # Checks for payload part that starts at the beginning and ends with carriage return
+    except ValueError:
+        sys.stdout.write('-')
+        sys.stdout.flush()
+        return None
+    
+    # Dictionary made out of the decoded payload
+    # It splits allong the colon such as key : value
+    header = dict(re.findall(r'(?P<name>.*?):(?P<value>.*?)\r\n', header_raw.decode()))
+    
+    # If no 'Content-type' key - > none
+    if 'Content-Type' not in header:
+        return None
+    return header # Return header
 
 def extract_content(Response, content_name='image'):
     pass
