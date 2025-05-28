@@ -35,7 +35,18 @@ def get_header(payload):
     return header # Return header
 
 def extract_content(Response, content_name='image'):
-    pass
+    content, content_type = None, None
+    if content_name in Response.header['Content-Type']:# If image 
+        content_type = Response.header['Content-Type'].split('/')[1] # Store img type
+        content = Response.payload[Response.payload.index(b'\r\n\r\n')+4] # Acc img
+        
+        if 'Content-Encoding' in Response.header:# If encoded
+            if Response.header['Content-Encoding'] == "gzip": 
+                content = zlib.decompress(Response.payload, zlib.MAX_WBITS|32) # Dcompres
+            elif Response.header['Content-Enconding'] == 'deflate':
+                content = zlib.decompress(Response.payload) # Dcompres
+                 
+    return content, content_type
 
 class Recapper:
     def __init__(self, fname):
