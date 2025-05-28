@@ -6,6 +6,7 @@ import os
 import re
 import sys
 import zlib
+from scapy import TCP, rdpcap
 from collections import namedtuple # Like a tupple, but u can call it by name; inits with ntuple = nametuple('ntuple', ['Name1', 'Name2']) 
                                    # ∴ you can call ntuple.Name1 and ntuple.Name2 instead of indexes
 
@@ -50,7 +51,9 @@ def extract_content(Response, content_name='image'):
 
 class Recapper:
     def __init__(self, fname):
-        pass
+        pcap = rdpcap(fname)
+        
+    
     def get_responses(self):
         pass
     
