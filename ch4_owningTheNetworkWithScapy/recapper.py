@@ -39,12 +39,12 @@ def extract_content(Response, content_name='image'):
     content, content_type = None, None
     if content_name in Response.header['Content-Type']:# If image 
         content_type = Response.header['Content-Type'].split('/')[1] # Store img type
-        content = Response.payload[Response.payload.index(b'\r\n\r\n')+4] # Acc img
+        content = Response.payload[Response.payload.index(b'\r\n\r\n')+4:] # Acc img
         
         if 'Content-Encoding' in Response.header:# If encoded
             if Response.header['Content-Encoding'] == "gzip": 
                 content = zlib.decompress(Response.payload, zlib.MAX_WBITS|32) # Dcompres
-            elif Response.header['Content-Enconding'] == 'deflate':
+            elif Response.header['Content-Encoding'] == 'deflate':
                 content = zlib.decompress(Response.payload) # Dcompres
                  
     return content, content_type
@@ -57,7 +57,7 @@ class Recapper:
         
     def get_responses(self):
         for session in self.sessions:
-            payload = 'b'
+            payload = b''
             for packet in self.sessions[session]:
                 try:
                     if packet[TCP].dport == 80 or packet[TCP].sport == 80:
@@ -80,7 +80,7 @@ class Recapper:
                 fname = os.path.join(OUTDIR, f'ex_{i}.{content_type}')
                 print(f'Writing {fname} Ɛ( · — ·)3')
                 with open(fname, 'wb') as f:
-                    r.write(content)
+                    f.write(content)
 
 if __name__ == '__main__':
     pfile = os.path.join(PCAPS, 'pcap.pcap')
