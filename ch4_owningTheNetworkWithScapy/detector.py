@@ -6,9 +6,9 @@
 import cv2 # OpenCV to detect faces; it can also detect a bunch other things is u go through the lib 
 import os
 
-ROOT = '/root/Desktop/pictures' # Src dir
-FACES = '/root/Desktop/faces' # Target dir
-TRAIN = '/root/Desktop/training' 
+ROOT = '/home/kali/pictures' # Src dir
+FACES = '/home/kali/faces' # Target dir
+TRAIN = '/home/kali/training' 
 
 def detect(srcdir=ROOT, tgtdir=FACES, train_dir=TRAIN):
     for fname in os.listdir(srcdir):
@@ -21,7 +21,7 @@ def detect(srcdir=ROOT, tgtdir=FACES, train_dir=TRAIN):
             continue
         
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        training = os.path(train_dir, 'haarcascade_frontalface_alt.xml') # Load detector xml
+        training = os.path.join(train_dir, 'haarcascade_frontalface_alt.xml') # Load detector xml
         cascade = cv2.CascadeClassifier(training) # Create detector obj
         rects = cascade.detectMultiScale(gray, 1.3, 5) # returns coordonates of a rectangle where the face at
         try:
@@ -40,3 +40,11 @@ def detect(srcdir=ROOT, tgtdir=FACES, train_dir=TRAIN):
 
 if __name__=='__main__':
     detect()
+    
+# 𝗧𝗲𝘀𝘁:
+#
+# apt-get install libopencv-dev python3-opencv python3-numpy python3-scipy
+# wget http://eclecti.cc/files/2008/03/haarcascade_frontalface_alt.xml
+# ----------------------- Import OpenCV before --------------------------
+#
+#
