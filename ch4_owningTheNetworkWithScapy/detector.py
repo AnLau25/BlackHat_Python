@@ -8,9 +8,8 @@ import os
 
 ROOT = '/home/kali/pictures' # Src dir
 FACES = '/home/kali/faces' # Target dir
-TRAIN = '/home/kali/training' 
 
-def detect(srcdir=ROOT, tgtdir=FACES, train_dir=TRAIN):
+def detect(srcdir=ROOT, tgtdir=FACES):
     for fname in os.listdir(srcdir):
         if not fname.upper().endswith('.JPG'):
             continue
@@ -21,7 +20,7 @@ def detect(srcdir=ROOT, tgtdir=FACES, train_dir=TRAIN):
             continue
         
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        training = os.path.join(train_dir, 'haarcascade_frontalface_alt.xml') # Load detector xml
+        training = os.path.join(ROOT, 'haarcascade_frontalface_alt.xml') # Load detector xml
         cascade = cv2.CascadeClassifier(training) # Create detector obj
         rects = cascade.detectMultiScale(gray, 1.3, 5) # returns coordonates of a rectangle where the face at
         try:
@@ -42,9 +41,14 @@ if __name__=='__main__':
     detect()
     
 # 𝗧𝗲𝘀𝘁:
+# ⁡⁢⁣⁢Note:⁡ This all was ran from home/kali, so dirs must be changed in case of adr change
 #
 # apt-get install libopencv-dev python3-opencv python3-numpy python3-scipy
 # wget http://eclecti.cc/files/2008/03/haarcascade_frontalface_alt.xml
 # ----------------------- Import OpenCV before --------------------------
+# sudo python detector.py
 #
-#
+# Output:
+# Got a face! Ɛ( · — ·)3 <As many as pictures with faces>
+# 
+# PD: it does not work with .jpeg and I manualy downloaded the imgs cause recapper does not run on https... yet Ɛ( · — ·)3

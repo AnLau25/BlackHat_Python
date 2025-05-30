@@ -93,3 +93,8 @@ if __name__ == '__main__':
 # 1. Create a Recaper obj
 # 2. Call get_responses 
 # 3. Write extracted response imgs to disk 
+
+# ⁡⁢⁣⁢Note:⁡⁡ This all was ran from home/kali, so dirs must be changed in case of adr change
+
+# New project:
+# Make run on https
