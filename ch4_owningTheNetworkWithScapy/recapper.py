@@ -6,11 +6,11 @@ import os
 import re
 import sys
 import zlib
-from scapy import TCP, rdpcap
+from scapy.all import TCP, rdpcap
 from collections import namedtuple # Like a tupple, but u can call it by name; inits with ntuple = nametuple('ntuple', ['Name1', 'Name2']) 
                                    # ∴ you can call ntuple.Name1 and ntuple.Name2 instead of indexes
 
-ROOT = '/home/kali/pictures' # trgt dir
+OUTDIR = '/home/kali/pictures' # trgt dir
 PCAPS = '/home/kali' # Src dir
 
 # contains attributes
