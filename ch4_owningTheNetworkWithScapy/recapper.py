@@ -84,7 +84,7 @@ class Recapper:
                     f.write(content) # write content to file
 
 if __name__ == '__main__':
-    pfile = os.path.join(PCAPS, 'pcap.pcap')
+    pfile = os.path.join(PCAPS, 'arper.pcap')
     recapper = Recapper(pfile)
     recapper.get_responses()
     recapper.write('image')
