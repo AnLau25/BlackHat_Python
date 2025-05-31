@@ -10,11 +10,12 @@
 
 # import urllib2
 # url = "https://www.nostarch.com"
-# header = {'User-Agent': "Googlebot"}
-# request = urllib2.Request(url, headers=headers)
-# response = urllib2.urlopen(request)
+# header = {'User-Agent': "Googlebot"} # defines the header as a dictionary
+# Allows us to choose the header keys and values that we want
+# request = urllib2.Request(url, headers=headers) # Create request obj
+# response = urllib2.urlopen(request) # Returns a normal file
 # print(response.read())
-# response.close()
+# response.close() 
 
 import urllib.parse
 import urllib.response
