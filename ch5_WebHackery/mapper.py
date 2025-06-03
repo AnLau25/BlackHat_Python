@@ -25,3 +25,17 @@ def gather_paths():
                 path = path[:1]
                 print(path)
                 web_paths.put(path)
+
+@contextlib.contextmanager
+def chdir(path):
+    """
+        On enter, change directory to specified path.
+        On exit, change directory back to original.
+    """
+    this_dir = os.getcwd()
+    os.chdir(path)
+    try:
+        yield
+    finally:
+        os.chdir(this_dir)
+
