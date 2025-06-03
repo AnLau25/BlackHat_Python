@@ -1,5 +1,4 @@
 # Gaining acces and exploiting Content Management Systems, for human made error or bugs (Wordpress for example)
-
 import os
 import sys
 import time
@@ -21,8 +20,8 @@ def gather_paths():
             if os.path.splitext(fname)[1] in FILTERED: # Test discovered files on current 𝘱𝘢𝘵𝘩 against 𝘍𝘐𝘓𝘛𝘌𝘙𝘌𝘋
                 continue
             path = os.path.join(root, fname)
-            if path.startswith('.'):
-                path = path[:1]
+            if path.startswith('./'): # modified for path reding (mod 1)
+                path = path[2:] # mod 2
                 print(path)
                 web_paths.put(path) # Append valid discovered path
 
