@@ -9,7 +9,7 @@ import threading
 import contextlib
 
 FILTERED = [".jpg", ".gif", ".png", ".css"]
-TARGET = "http://boodelyboo.com"
+TARGET = "http://boodelyboo.com" 
 THREADS = 10
 
 answers = queue.Queue()
@@ -39,3 +39,7 @@ def chdir(path):
     finally:
         os.chdir(this_dir)
 
+if __name__=="__main__":
+    with chdir("/home/kali/wordpress"):
+        gather_paths()
+    input('Press return to continue.')
