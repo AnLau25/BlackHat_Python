@@ -45,3 +45,31 @@ if __name__=="__main__":
     with chdir("/home/kali/wordpress"): # with statement to set path to execute code into and dir to go-back-to
         gather_paths()
     input('Press return to continue.')
+
+# 𝗧𝗲𝘀𝘁:
+# The program will output everithing found
+#
+# python mapper.py
+# wp-mail.php
+# wp-settings.php
+# index.php
+# license.txt
+# wp-cron.php
+# wp-links-opml.php
+# wp-blog-header.php
+# wp-trackback.php
+# ------ This is just an example ------
+# wp-includes/PHPMailer/Exception.php
+# wp-includes/PHPMailer/PHPMailer.php
+# wp-includes/theme-compat/comments.php
+# wp-includes/theme-compat/footer.php
+# wp-includes/theme-compat/header-embed.php
+# wp-includes/theme-compat/embed-content.php
+# wp-includes/theme-compat/footer-embed.php
+# wp-includes/theme-compat/sidebar.php
+# wp-includes/theme-compat/embed.php
+# wp-includes/theme-compat/embed-404.php
+# wp-includes/theme-compat/header.php
+#
+# Press return to continue.
+
