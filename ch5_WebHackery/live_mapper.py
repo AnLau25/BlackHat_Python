@@ -55,8 +55,15 @@ def test_remote():
             sys.stdout.write('x') # x to let us know it failed
         sys.stdout.flush()
             
-        
-        
+def run():
+    methreads = list()
+    for i in range(THREADS): # Run test_remote on 10 threads (defined above)
+        print(f'Spawning thread {i}')
+        t = threading.Thread(target=test_remote) # test_remote
+        methreads.append(t)
+        t.start()
+    for thread in methreads:
+        thread.join() # join after execution
 
 if __name__=="__main__":
     with chdir("/home/kali/wordpress"): # with statement to set path to execute code into and dir to go-back-to
