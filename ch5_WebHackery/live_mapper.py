@@ -71,7 +71,7 @@ if __name__=="__main__":
     input('Press return to continue.')
     
     run()
-    with open('answers.txt', 'w') as f:
+    with open('answers.txt', 'w') as f: # write results to an answers.txt
         while not answers.empty():
             f.write(f'{answers.get()}\n')
     print('done')
