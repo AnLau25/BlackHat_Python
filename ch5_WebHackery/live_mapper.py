@@ -9,7 +9,7 @@ import threading
 import contextlib
 
 FILTERED = [".jpg", ".gif", ".png", ".css"] # List of extensions to ignore
-TARGET = "http://boodelyboo.com" # Id target website
+TARGET = "http://boodelyboo.com/wordpress" # Id target website
 THREADS = 10
 
 answers = queue.Queue() # Localy located file paths
@@ -41,6 +41,22 @@ def chdir(path):
         yield # control back to 𝘨𝘢𝘵𝘩𝘦𝘳_𝘱𝘢𝘵𝘩𝘴()
     finally: # always executes
         os.chdir(this_dir) # rever to origine dir
+
+def test_remote():
+    while not web_paths.empty(): # loop until web_paths is empty 
+        path = web_paths.get() # for each iter, grab a path from the Queue
+        url = f'{TARGET}{path}' # and add it to the target web path 
+        time.sleep(2) # the target may have throttling/lockout (ie, locks you out if you send too many requests)
+        r = requests.get(url) # attempt to retreive the formed url
+        if r.status_code == 200: # success == 200
+            answers.put(url) # add to answers on succes
+            sys.stdout.write('+')
+        else:
+            sys.stdout.write('x') # x to let us know it failed
+        sys.stdout.flush()
+            
+        
+        
 
 if __name__=="__main__":
     with chdir("/home/kali/wordpress"): # with statement to set path to execute code into and dir to go-back-to
