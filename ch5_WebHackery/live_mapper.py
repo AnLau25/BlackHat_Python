@@ -69,3 +69,9 @@ if __name__=="__main__":
     with chdir("/home/kali/wordpress"): # with statement to set path to execute code into and dir to go-back-to
         gather_paths()
     input('Press return to continue.')
+    
+    run()
+    with open('answers.txt', 'w') as f:
+        while not answers.empty():
+            f.write(f'{answers.get()}\n')
+    print('done')
