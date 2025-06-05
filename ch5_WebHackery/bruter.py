@@ -27,7 +27,7 @@ def get_words(resume=None):
             words.put(f'/{word}{extension}')
             
     with open(WORDLIST) as f:
-        raw_words = f.read
+        raw_words = f.read()
     
     found_resume = False
     words = queue.Queue()
