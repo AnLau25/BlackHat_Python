@@ -62,4 +62,10 @@ def dir_bruter(words):
         else:
             print(f'{r.status_code} => {url}')
     
+if __name__=="__main__":
+    words = get_words()
+    sys.stdin.readline()
+    for _ in range(THREADS):
+        t = threading.Thread(target=dir_bruter, args=(words,))
+        t.start()
     
