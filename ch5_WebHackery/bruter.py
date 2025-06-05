@@ -44,6 +44,22 @@ def get_words(resume=None):
             extended_words(word)
     
     return words
-                
+
+def dir_bruter(words):
+    headers = {'User-Agent':AGENT}
+    while not words.empty():
+        url = f'{TARGET}{words.get()}'
+        try:
+            r = requests.get(url, headers=headers)
+        except requests.exceptions.ConnectionError:
+            sys.stderr.write('x');sys.stderr.flush()
+            continue
+        
+        if r.status_code == 200:
+            print(f'\nSucces ({r.status_code}: {url})')
+        elif r.status_code == 400:
+            sys.stderr.write('.');sys.stderr.flush()
+        else:
+            print(f'{r.status_code} => {url}')
     
     
