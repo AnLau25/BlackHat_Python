@@ -29,4 +29,21 @@ def get_words(resume=None):
     with open(WORDLIST) as f:
         raw_words = f.read
     
+    found_resume = False
+    words = queue.Queue()
+    
+    for word in raw_words.split():
+        if resume is not None:
+            if found_resume:
+                extended_words(word)
+            elif word==resume:
+                found_resume = True
+                print(f'Resuming wordlist from: {resume}')
+        else:
+            print(word)
+            extended_words(word)
+    
+    return words
+                
+    
     
