@@ -9,3 +9,24 @@ import queue
 import requests
 import threading
 
+AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0"
+TARGET = "http://testphp.vulnweb.com"
+EXTENSIONS = ['.php', '.bak', '.orig', '.inc']
+THREADS = 50
+WORDLIST = "/home/kali/all.txt"
+
+def get_words(resume=None):
+    
+    def extended_words(word):
+        if "." in word:
+            words.put(f'/{word}')
+        else:
+            words.put(f'/{word}')
+        
+        for extension in EXTENSIONS:
+            words.put(f'/{word}{extension}')
+            
+    with open(WORDLIST) as f:
+        raw_words = f.read
+    
+    
