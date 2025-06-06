@@ -17,23 +17,23 @@ WORDLIST = "/home/kali/all.txt"
 
 def get_words(resume=None):
     
-    def extended_words(word):
+    def extended_words(word): # inner function to try extensions on every word
         if "." in word:
             words.put(f'/{word}')
         else:
-            words.put(f'/{word}')
+            words.put(f'/{word}/')
         
         for extension in EXTENSIONS:
             words.put(f'/{word}{extension}')
             
     with open(WORDLIST) as f:
-        raw_words = f.read()
+        raw_words = f.read() # Read word list
     
     found_resume = False
     words = queue.Queue()
     
     for word in raw_words.split():
-        if resume is not None:
+        if resume is not None: # Set the path to the last brute forcer tried, in case of disconection
             if found_resume:
                 extended_words(word)
             elif word==resume:
@@ -43,29 +43,32 @@ def get_words(resume=None):
             print(word)
             extended_words(word)
     
-    return words
+    return words #queue of words to use in the acc brute forcer function
 
 def dir_bruter(words):
-    headers = {'User-Agent':AGENT}
-    while not words.empty():
-        url = f'{TARGET}{words.get()}'
-        try:
+    headers = {'User-Agent': AGENT} # Agent created to pass the request as "decent ppl"
+    
+    while not words.empty(): # Loop through the words queue
+        url = f'{TARGET}{words.get()}' # Create a new url
+        try: # send request to remote server
             r = requests.get(url, headers=headers)
         except requests.exceptions.ConnectionError:
-            sys.stderr.write('x');sys.stderr.flush()
+            sys.stderr.write('x');sys.stderr.flush() # Print "x" in case of error
             continue
         
         if r.status_code == 200:
             print(f'\nSucces ({r.status_code}: {url})')
-        elif r.status_code == 400:
-            sys.stderr.write('.');sys.stderr.flush()
+        elif r.status_code == 404:
+            sys.stderr.write('.');sys.stderr.flush() # Print "." in case of error 404/not found
         else:
-            print(f'{r.status_code} => {url}')
+            print(f'{r.status_code} => {url}') 
+            # Anything else, we print the url, cause it means there might be smt there
     
 if __name__=="__main__":
-    words = get_words()
-    sys.stdin.readline()
+    words = get_words() # Create the words queue
+    sys.stdin.readline() 
+    # Creates a small pause, just so that the suden trafic goes unoticed
     for _ in range(THREADS):
         t = threading.Thread(target=dir_bruter, args=(words,))
-        t.start()
+        t.start() # start threads
     
