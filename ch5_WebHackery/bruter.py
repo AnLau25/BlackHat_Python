@@ -10,7 +10,7 @@ import requests
 import threading
 
 AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0"
-TARGET = "http://testphp.vulnweb.com"
+TARGET = "http://testphp.vulnweb.com/index.php"
 EXTENSIONS = ['.php', '.bak', '.orig', '.inc']
 THREADS = 50
 WORDLIST = "/home/kali/all.txt"
