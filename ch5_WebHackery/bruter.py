@@ -10,7 +10,7 @@ import requests
 import threading
 
 AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0"
-TARGET = "http://testphp.vulnweb.com/index.php"
+TARGET = "http://testphp.vulnweb.com"
 EXTENSIONS = ['.php', '.bak', '.orig', '.inc']
 THREADS = 50
 WORDLIST = "/home/kali/all.txt"
@@ -40,7 +40,7 @@ def get_words(resume=None):
                 found_resume = True
                 print(f'Resuming wordlist from: {resume}')
         else:
-            print(word)
+            # print(word) ok so it's printing, all right. Wayyy too much noice tho 
             extended_words(word)
     
     return words #queue of words to use in the acc brute forcer function
@@ -56,7 +56,7 @@ def dir_bruter(words):
             sys.stderr.write('x');sys.stderr.flush() # Print "x" in case of error
             continue
         
-        if r.status_code == 200:
+        if r.status_code in [200, 301, 302]: # Includes redirect cause it might be interesting
             print(f'\nSucces ({r.status_code}: {url})')
         elif r.status_code == 404:
             sys.stderr.write('.');sys.stderr.flush() # Print "." in case of error 404/not found
@@ -67,8 +67,10 @@ def dir_bruter(words):
 if __name__=="__main__":
     words = get_words() # Create the words queue
     sys.stdin.readline() 
-    # Creates a small pause, just so that the suden trafic goes unoticed
+    # Creates a small pause, just so that the suden trafic goes unoticed, press any key to coninue
     for _ in range(THREADS):
         t = threading.Thread(target=dir_bruter, args=(words,))
         t.start() # start threads
+        
+
     
