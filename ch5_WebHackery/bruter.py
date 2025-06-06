@@ -72,5 +72,20 @@ if __name__=="__main__":
         t = threading.Thread(target=dir_bruter, args=(words,))
         t.start() # start threads
         
-
-    
+# 𝗧𝗲𝘀𝘁:
+#
+# .......................
+# Succes (200: http://testphp.vulnweb.com/admin/)
+# ...
+# Succes (200: http://testphp.vulnweb.com/CVS/)
+# .....................................................
+#
+# ------------ but load of "." responses ------------
+#
+# .............................................xxxxxx..
+# .....................................................
+# Succes (200: http://testphp.vulnweb.com/index.bak)
+# Succes (200: http://testphp.vulnweb.com/index.php)...
+#
+# Cut of the sake of my sanity, but it returns a lot of links   
+# Again, keep in mind, this is OWASP's vulnerable web
