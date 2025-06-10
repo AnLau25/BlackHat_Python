@@ -39,7 +39,17 @@ def get_words():
     
     return words
         
-
+def get_params(content):
+    params = dict()
+    parser = etree.HTMLParser()
+    tree = etree.parse(BytesIO(content), parser=parser)
+    
+    for elem in tree.findall('//input'): # find all input elems
+        name = elem.get('name')
+        if name is not None:
+            params[name] = elem.get('value', None)
+    
+    return params
 
 
 
