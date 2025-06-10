@@ -16,7 +16,21 @@
 # 𝗗𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝘄𝗼𝗿𝗱𝗹𝗶𝘀𝘁 𝗳𝗼𝗿 𝗯𝗿𝘂𝘁𝗲𝗳𝗼𝗿𝗰𝗲:
 # wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Software/cain-and-abel.txt
 
-  
+from io import BytesIO
+from lxml import etree
+from queue import Queue
+
+import sys
+import time
+import requests
+import threading
+
+SUCCES = 'Welcome to WordPress!'
+TARGET = 'http://boodelyboo.com/wordpress/wp-login.php'
+WORDLIST = 'home/kali/cain-and-abel'
+
+
+
 
 
 
