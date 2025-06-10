@@ -29,6 +29,16 @@ SUCCES = 'Welcome to WordPress!'
 TARGET = 'http://boodelyboo.com/wordpress/wp-login.php'
 WORDLIST = 'home/kali/cain-and-abel'
 
+def get_words():
+    with open(WORDLIST) as f:
+        raw_words = f.read()
+    
+    words = Queue()
+    for word in raw_words.split():
+        words.put(word)
+    
+    return words
+        
 
 
 
