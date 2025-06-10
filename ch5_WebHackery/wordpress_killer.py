@@ -13,6 +13,9 @@
 #   3. Set the uss and pswd from a guest in diretory
 #   4. Send HTTP POST to login processing script, cookies and form fields included
 #   5. Test login
+# 𝗗𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝘄𝗼𝗿𝗱𝗹𝗶𝘀𝘁 𝗳𝗼𝗿 𝗯𝗿𝘂𝘁𝗲𝗳𝗼𝗿𝗰𝗲:
+# wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Software/cain-and-abel.txt
+
   
 
 
