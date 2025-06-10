@@ -85,4 +85,8 @@ class Bruter:
                 print('Password is %s\n' % passwd) # corrected from brute
                 print('done: now cleaning other threads...')
 
+if __name__=="__main__":
+    words = get_words()
+    b = Bruter('tim', TARGET) # To fix after wordpress
+    b.run_bruteforce(words)
 
