@@ -4,3 +4,12 @@
 # Place file location in box
 # Close and re-open
 # ​‍‌‌⁡⁢⁣⁢‍‍1⁡​​Jython expects python2 
+
+# 𝗕𝘂𝗿𝗽 𝗔𝗣𝗜 𝗱𝗼𝗰𝘂𝗺𝗲𝗻𝘁𝗮𝘁𝗶𝗼𝗻:
+# Go to Extender
+# Go to 𝗔𝗣𝗜𝘀 tab
+# For fuzz web requests during Intruder attacks:
+#   - Intruder folder (↓)
+#   - IIntruderPayloadGenerator (creo que es IntruderPayloadGenerator)
+#   - IIntruderPayloadGeneratorFactory (idk) 
+# 
