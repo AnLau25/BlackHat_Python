@@ -6,16 +6,7 @@ import random
 from java.util import List, ArrayList
 
 class BurpExtender(IBrupExtender, IIntruderPayloadGeneratorFactory):
-    
-    def __init__(self, extender, attack):
-        self._extender = extender
-        self._helpers = extender._helpers
-        self._attack = attack
-        self.max_payloads = 10
-        self.num_iterations = 0
-        
-        return 
-    
+      
     def registerExtenderCallbacks(self, callbacks):
         self._callbacks = callbacks
         self._helpers = callbacks.getHelpers()
@@ -33,6 +24,19 @@ class BurpExtender(IBrupExtender, IIntruderPayloadGeneratorFactory):
         return BHPFuzzer(self, attack)
         # Receives 𝘢𝘵𝘵𝘢𝘤𝘬 parameter & returns the 𝘐𝘐𝘯𝘵𝘳𝘶𝘥𝘦𝘎𝘦𝘯𝘦𝘳𝘢𝘵𝘰𝘳 class (ie BHPFuzzer)
         
+    
+
+class BHPFuzzer(IIntruderPayloadGenerator):
+    
+    def __init__(self, extender, attack):
+        self._extender = extender
+        self._helpers = extender._helpers
+        self._attack = attack
+        self.max_payloads = 10
+        self.num_iterations = 0
+        
+        return 
+    
     def hasMorePayloads(self):
         if self.num_iterations == self.max_payloads:
             return False
@@ -54,4 +58,3 @@ class BurpExtender(IBrupExtender, IIntruderPayloadGeneratorFactory):
     def reset(self):
         self.num_iterations = 0
         return
-        
