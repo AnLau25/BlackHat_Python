@@ -39,6 +39,18 @@ class BurpExtender(IBrupExtender, IIntruderPayloadGeneratorFactory):
         else:
             return True
     
+    def getNextPayload(self, current_payload):
+        
+        payload = "".join(chr(x) for x in current_payload)
+        # convert to str
+        
+        payload = self.mutate_payload(payload)
+        # call simple mutator to fuzz the POST
+        
+        self.num_iterations +=1 # fuzzing attemps ++
+        
+        return payload
+    
     def reset(self):
         self.num_iterations = 0
         return
