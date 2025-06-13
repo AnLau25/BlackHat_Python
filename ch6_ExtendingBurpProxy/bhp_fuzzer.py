@@ -26,26 +26,26 @@ class BurpExtender(IBrupExtender, IIntruderPayloadGeneratorFactory):
         
     
 
-class BHPFuzzer(IIntruderPayloadGenerator):
+class BHPFuzzer(IIntruderPayloadGenerator): # Extends 𝘐𝘐𝘯𝘵𝘳𝘶𝘥𝘦𝘳𝘗𝘢𝘺𝘭𝘰𝘢𝘥𝘎𝘦𝘯𝘦𝘳𝘢𝘵𝘰𝘳
     
     def __init__(self, extender, attack):
         self._extender = extender
         self._helpers = extender._helpers
         self._attack = attack
-        self.max_payloads = 10
-        self.num_iterations = 0
+        self.max_payloads = 10 # When to ends the iterations
+        self.num_iterations = 0 # How many we got (counter)
         
         return 
     
-    def hasMorePayloads(self):
+    def hasMorePayloads(self): # Checks if we've reach max_payloads or no
         if self.num_iterations == self.max_payloads:
             return False
         else:
             return True
     
-    def getNextPayload(self, current_payload):
+    def getNextPayload(self, current_payload): # Receives og HTTP payload and fuzzes
         
-        payload = "".join(chr(x) for x in current_payload)
+        payload = "".join(chr(x) for x in current_payload) # Byte arr -> str
         # convert to str
         
         payload = self.mutate_payload(payload)
@@ -53,8 +53,8 @@ class BHPFuzzer(IIntruderPayloadGenerator):
         
         self.num_iterations +=1 # fuzzing attemps ++
         
-        return payload
-    
-    def reset(self):
+        return payload # retrun mutated 
+     
+    def reset(self): # Reset iters
         self.num_iterations = 0
         return
