@@ -1,4 +1,4 @@
-from burp import IBrupExtender
+from burp import IBurpExtender
 from burp import IIntruderPayloadGenerator
 from burp import IIntruderPayloadGeneratorFactory
 
@@ -63,7 +63,7 @@ class BHPFuzzer(IIntruderPayloadGenerator): # Extends 𝘐𝘐𝘯𝘵𝘳𝘶�
         picker = random.randint(1,3)
         # Sim or external script
         
-        offset = random.randint()
+        offset = random.randint(0, len(original_payload) - 1)
         # select a random offset in payload to mutate
         
         front, back = original_payload[:offset], original_payload[offset:]
