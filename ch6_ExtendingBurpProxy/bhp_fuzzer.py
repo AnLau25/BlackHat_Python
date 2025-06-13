@@ -14,3 +14,9 @@ class BurpExtender(IBrupExtender, IIntruderPayloadGeneratorFactory):
         callbacks.registerIntruderPayloadGeneratorFactory(self)
         
         return
+
+    def getGeneratorName(self):
+        return "BHP Payload Generator"
+    
+    def createNewInstance(self, attack):
+        return BHPFuzzer(self, attack)
