@@ -33,5 +33,13 @@ class BurpExtender(IBrupExtender, IIntruderPayloadGeneratorFactory):
         return BHPFuzzer(self, attack)
         # Receives 𝘢𝘵𝘵𝘢𝘤𝘬 parameter & returns the 𝘐𝘐𝘯𝘵𝘳𝘶𝘥𝘦𝘎𝘦𝘯𝘦𝘳𝘢𝘵𝘰𝘳 class (ie BHPFuzzer)
         
-        
+    def hasMorePayloads(self):
+        if self.num_iterations == self.max_payloads:
+            return False
+        else:
+            return True
+    
+    def reset(self):
+        self.num_iterations = 0
+        return
         
