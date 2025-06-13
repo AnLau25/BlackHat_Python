@@ -58,3 +58,28 @@ class BHPFuzzer(IIntruderPayloadGenerator): # Extends 𝘐𝘐𝘯𝘵𝘳𝘶�
     def reset(self): # Reset iters
         self.num_iterations = 0
         return
+    
+    def mutate_payload(self, original_payload):
+        picker = random.randint(1,3)
+        # Sim or external script
+        
+        offset = random.randint()
+        # select a random offset in payload to mutate
+        
+        front, back = original_payload[:offset], original_payload[offset:]
+        # break the payload into chunks
+        
+        # sql injection attmept
+        if picker == 1:
+            front += "'"
+        
+        elif picker == 2: # attempt to jam an xss (cross site scripting)
+            front += "<script>alert('BHP!');</script>"
+        
+        elif picker == 3: # repeat a random chunk of the original payload
+            chunk_length = random.randint(0, len(back)-1)
+            repeater = random.randint(1,10)
+            for _ in range(repeater):
+                front += original_payload[:offset + chunk_length]
+        
+        return front + back
