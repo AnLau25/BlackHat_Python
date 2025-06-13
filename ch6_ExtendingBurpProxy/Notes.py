@@ -13,3 +13,13 @@
 #   - IIntruderPayloadGenerator (creo que es IntruderPayloadGenerator)
 #   - IIntruderPayloadGeneratorFactory (idk) 
 # 
+
+# 𝗧𝗲𝘀𝘁 𝗯𝗵𝗽_𝗳𝘂𝘇𝘇𝗲𝗿.𝗽𝘆:
+#   - Add to extensions: Extensions >>> Add: Set Extension type to Python, Extension file bhp_fuzzer.py location
+#   - >>> Proxy: Click "𝘖𝘱𝘦𝘯 𝘣𝘳𝘰𝘸𝘴𝘦𝘳", go to http://testphp.vulnweb.com/
+#   - Turn on intercept, interact with testphp search box >>> Proxy: HTTP Hisotry
+#   - Select POST method + rightClick, select 𝘚𝘦𝘯𝘥 𝘵𝘰 𝘐𝘯𝘵𝘳𝘶𝘥𝘦𝘳
+#   - >>> Intruder >>> Position >>> Select payload and click 𝘈𝘥𝘥
+#   - >>> Intruder: Payload, Set Payload type to 𝘌𝘹𝘵𝘦𝘯𝘴𝘪𝘰𝘯-𝘨𝘦𝘯𝘦𝘳𝘢𝘵𝘦𝘥 and Extension payload generator to 𝘉𝘏𝘗 𝘗𝘢𝘺𝘭𝘰𝘢𝘥 𝘎𝘦𝘯𝘦𝘳𝘢𝘵𝘰𝘳 
+#   - Click 𝘚𝘵𝘢𝘳𝘵 𝘈𝘵𝘵𝘢𝘤𝘬
+#   - New window with fuzzing results will apear
