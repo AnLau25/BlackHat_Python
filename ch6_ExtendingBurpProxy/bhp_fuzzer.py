@@ -5,7 +5,7 @@ from burp import IIntruderPayloadGeneratorFactory
 import random
 from java.util import List, ArrayList
 
-class BurpExtender(IBrupExtender, IIntruderPayloadGeneratorFactory):
+class BurpExtender(IBurpExtender, IIntruderPayloadGeneratorFactory):
       
     def registerExtenderCallbacks(self, callbacks):
         self._callbacks = callbacks
