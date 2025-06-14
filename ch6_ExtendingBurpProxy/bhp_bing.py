@@ -13,3 +13,18 @@ import socket
 import urllib
 API_KEY = "YOURKEY"
 API_HOST = 'api.cognitive.microsoft.com'
+
+
+class BurpExtender(IBurpExtender, IContextMenuFactory):
+    
+    def registerExtender(self, callbacks):
+        self._callbacks = callbacks
+        self._helpers = callbacks.getHelpers()
+        self.context = None
+        
+        # Set up extentsion
+        callbacks.setExtensionName("BHP Bing")
+        callbacks.registerContexMenuFactory(self)
+        
+        return
+        
