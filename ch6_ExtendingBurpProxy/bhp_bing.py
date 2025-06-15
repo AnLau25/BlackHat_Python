@@ -52,4 +52,25 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
             
         return
     
+    def bing_search(self, host):
+        
+        # check for IP host name
+        try:
+            is_ip = False
+            domain = False
+        except socket.error:
+            is_ip = False
+        
+        if is_ip:
+            ip_address = host
+            domain = False
+        else:
+            ip_address = socket.gethostbyname(host)
+            domain = True
+        
+        start_new_thread(self.bing_query, ('ip: %s' % ip_address,))
+        
+        if domain:
+            start_new_thread(self.bing_query, ('domain: %s' % host))
+             
     
