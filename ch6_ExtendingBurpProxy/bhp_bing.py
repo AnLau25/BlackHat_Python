@@ -72,5 +72,42 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
         
         if domain:
             start_new_thread(self.bing_query, ('domain: %s' % host))
-             
     
+    def bing_query(self, bing_query_string):
+        print('Performing Bing search: %s' % bing_query_string)
+        http_request = 'GET https://%s/bing/v7.0/search?' % API_HOST
+        
+        # Query encode
+        http_request += 'q=%s HTTP/1.1\r\n' % urllib.quote(bing_query_string)
+        http_request += 'Host: %s\r\n' % API_HOST
+        http_request += 'Ocp-Apim-Subscription-Key: %s\r\n' % API_KEY
+        http_request += 'User Agent: Black Hat Python\r\n\r\n'
+        
+        json_body = self._callbacks.makeHttpRequest(
+            API_HOST, 433, True, http_request).tostring()
+        json_body = json_body.split('\r\n\r\n', 1)[1]
+        
+        try:
+            response = json.loads(json_body)
+        except (TypeError, ValueError) as e:
+            print('No results from Bing: %s' % e)
+        else:
+            site = list()
+            if response.get('webPages'):
+                sites = response['webPages']['value']
+            if len(sites):
+                for sites in sites:
+                    print('*'*100)
+                    print('Name: %s       ' % site['name'])
+                    print('Url: %s        ' % site['url'])
+                    print('Description: %s' % site['snippet'])
+                    print('*'*100)
+                    
+                    java_url = URL(site['url'])
+                    if not self._callbacks.isInScope(java_url):
+                        print('Adding %s to Burp scope' % site['url'])
+                        self._callbacks.includeInScope(java_url)
+            else:
+                print('Empty response from Bing: %s' % bing_query_string)
+        
+        return
