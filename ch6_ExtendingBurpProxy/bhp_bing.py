@@ -35,4 +35,21 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
             "Send to Bing", actionPerformed=self.bing_menu
         ))
         return menu_list
+    
+    def bing_menu(self, event):
+         
+        http_traffic = self.context.getSelectedMessage()
+        # grab details of what the user clicked
         
+        print("%d requests highlighted" % len(http_traffic))
+        
+        for traffic in http_traffic:
+            http_service = traffic.getHttpService()
+            host = http_service.getHost()
+            
+            print("User selected host: %s" % host) 
+            self.bing_search(host)
+            
+        return
+    
+    
