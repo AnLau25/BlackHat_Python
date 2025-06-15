@@ -2,6 +2,8 @@
 
 from burp import IBurpExtender
 from burp import IContextMenuFactory
+# Provides context menu on right-click for requests
+# Allows send to Bing option
 
 from java.net import URL
 from java.util import ArrayList
@@ -25,6 +27,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
         # Set up extentsion
         callbacks.setExtensionName("BHP Bing")
         callbacks.registerContextMenuFactory(self)
+        # Register menu handdler, ebables the Bing query construct
 
         return
     
@@ -34,18 +37,23 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
         menu_list.add(JMenuItem(
             "Send to Bing", actionPerformed=self.bing_menu
         ))
+        # Set up, create menu item that receives a 𝘐𝘊𝘰𝘯𝘵𝘦𝘹𝘵𝘔𝘦𝘯𝘶𝘍𝘢𝘤𝘵𝘰𝘳𝘺 obj
+        # Determines the HTTP request selected by the user
+        # Renders the menu itemand handles the click event with 𝘣𝘪𝘯𝘨_𝘮𝘦𝘯𝘶 method
         return menu_list
     
     def bing_menu(self, event):
          
         http_traffic = self.context.getSelectedMessage()
         # grab details of what the user clicked
+        # Triggered when the user clicks on defined menu item
         
         print("%d requests highlighted" % len(http_traffic))
         
         for traffic in http_traffic:
             http_service = traffic.getHttpService()
             host = http_service.getHost()
+            # Retreive IP and host name 
             
             print("User selected host: %s" % host) 
             self.bing_search(host)
@@ -69,10 +77,12 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
             domain = True
         
         start_new_thread(self.bing_query, ('ip: %s' % ip_address,))
+        # Query Bing for all virtual hosts on that IP
         
         if domain:
             start_new_thread(self.bing_query, ('domain: %s' % host))
-    
+            # If domain was also defined, do secondary search for subdomains that Bing may have indexed
+            
     def bing_query(self, bing_query_string):
         print('Performing Bing search: %s' % bing_query_string)
         http_request = 'GET https://%s/bing/v7.0/search?' % API_HOST
@@ -82,13 +92,17 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
         http_request += 'Host: %s\r\n' % API_HOST
         http_request += 'Ocp-Apim-Subscription-Key: %s\r\n' % API_KEY
         http_request += 'User Agent: Black Hat Python\r\n\r\n'
+        # Build a http request and add API key  to make an API call
         
         json_body = self._callbacks.makeHttpRequest(
             API_HOST, 433, True, http_request).tostring()
+        # Send http request to Microsoft server
+         
         json_body = json_body.split('\r\n\r\n', 1)[1]
+        # split headers when response is returned
         
         try:
-            response = json.loads(json_body)
+            response = json.loads(json_body) # response -> JSON parser
         except (TypeError, ValueError) as e:
             print('No results from Bing: %s' % e)
         else:
@@ -96,7 +110,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
             if response.get('webPages'):
                 sites = response['webPages']['value']
             if len(sites):
-                for sites in sites:
+                for sites in sites: # Output infor about discovered sites
                     print('*'*100)
                     print('Name: %s       ' % site['name'])
                     print('Url: %s        ' % site['url'])
@@ -104,7 +118,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
                     print('*'*100)
                     
                     java_url = URL(site['url'])
-                    if not self._callbacks.isInScope(java_url):
+                    if not self._callbacks.isInScope(java_url): # If site not in target scope, add it
                         print('Adding %s to Burp scope' % site['url'])
                         self._callbacks.includeInScope(java_url)
             else:
