@@ -24,8 +24,8 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
         
         # Set up extentsion
         callbacks.setExtensionName("BHP Bing")
-        callbacks.registerContexMenuFactory(self)
-        
+        callbacks.registerContextMenuFactory(self)
+
         return
     
     def createMenuItems(self, context_menu):
