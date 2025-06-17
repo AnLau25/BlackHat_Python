@@ -48,3 +48,21 @@ class BurpExtender(IBurpExtender,IContextMenuFactory):
         menu_list.add(JMenuItem(
             "Create Wordlist", actionPerformed = self.wordlist_menu))
         return menu_list
+    
+    def wordlist_menu(self, event):
+        http_traffic = self.context.getSelectedMessage()
+        # grab details of what the user clicked
+        # Triggered when the user clicks on defined menu item
+        
+        for traffic in http_traffic:
+            http_service = traffic.getHttpService()
+            host = http_service.getHost()
+            # Retreive IP and host name 
+            self.hosts.add(host)
+            http_response = traffic.getResponse()
+            
+            if http_response:
+                self.get_words(http_response)
+        
+        self.display_wordlist()
+        return
