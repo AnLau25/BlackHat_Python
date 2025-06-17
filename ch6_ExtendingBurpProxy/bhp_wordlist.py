@@ -56,7 +56,7 @@ class BurpExtender(IBurpExtender,IContextMenuFactory):
         return menu_list
     
     def wordlist_menu(self, event):
-        http_traffic = self.context.getSelectedMessage()
+        http_traffic = self.context.getSelectedMessages()
         # grab details of what the user clicked
         # Triggered when the user clicks on defined menu item
         
