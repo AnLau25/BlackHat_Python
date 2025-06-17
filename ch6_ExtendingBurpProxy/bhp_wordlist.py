@@ -1,4 +1,5 @@
 # Using burp caught trafic to generate a word lists
+# That way you have a site specific possible password list, for brute forcing
 
 from burp import IBurpExtender
 from burp import IContextMenuFactory

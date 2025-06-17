@@ -23,3 +23,10 @@
 #   - >>> Intruder: Payload, Set Payload type to 𝘌𝘹𝘵𝘦𝘯𝘴𝘪𝘰𝘯-𝘨𝘦𝘯𝘦𝘳𝘢𝘵𝘦𝘥 and Extension payload generator to 𝘉𝘏𝘗 𝘗𝘢𝘺𝘭𝘰𝘢𝘥 𝘎𝘦𝘯𝘦𝘳𝘢𝘵𝘰𝘳 
 #   - Click 𝘚𝘵𝘢𝘳𝘵 𝘈𝘵𝘵𝘢𝘤𝘬
 #   - New window with fuzzing results will apear
+
+# 𝗧𝗲𝘀𝘁 𝗯𝗵𝗽_wordlist.𝗽𝘆:
+#   - Add to extensions: Extensions >>> Add: Set Extension type to Python, Extension file bhp_fuzzer.py location
+#   - >>> Dashboard: Select New live task, select "Add all links observed in traffic through Proxy to site map"
+#   - Get results from Targe, opening browse as in last step
+#   - Select all targets, rightClick: Select Extensions, create Wordlist
+#   - >>> Extender >>> Output: Check that the wordlist was created
