@@ -1,5 +1,4 @@
 # Using burp caught trafic to generate a word lists
-# 
 
 from burp import IBurpExtender
 from burp import IContextMenuFactory
@@ -41,10 +40,10 @@ class BurpExtender(IBurpExtender,IContextMenuFactory):
         self.hosts = set()
     
         # Start with something common/espected
-        self.wordlist = set(["pasword"]) # like "password"
+        self.wordlist = set(["password"]) # like "password"
         
         # set up extension
-        callbacks.setExtenxionName("BHP Wordlist")
+        callbacks.setExtensionName("BHP Wordlist")
         callbacks.registerContextMenuFactory(self)
         
         return
