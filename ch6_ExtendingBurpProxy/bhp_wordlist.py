@@ -96,3 +96,12 @@ class BurpExtender(IBurpExtender,IContextMenuFactory):
                 mangled.append("%s%s" % (password, suffix))
         
         return mangled
+    
+    def display_wordlist(self):
+        print("#!comment: BHP Wordlist for site(s) %s" % ", ".join(self.hosts))
+        
+        for word in sorted(self.wordlist):
+            for password in self.mangle(word):
+                print(password)
+        
+        return
