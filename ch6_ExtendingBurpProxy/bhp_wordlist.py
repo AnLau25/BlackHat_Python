@@ -66,3 +66,33 @@ class BurpExtender(IBurpExtender,IContextMenuFactory):
         
         self.display_wordlist()
         return
+    
+    def get_words(self, http_response):
+        headers, body = http_response.tostring().split('\r\n\r\n',1)
+        
+        # skip non-text responses
+        if headers.lower().find('content-type: text') == -1:
+            return
+        
+        tag_stripper = TagStripper()
+        page_text = tag_stripper.strip(body)
+        
+        words = re.findall("[a-zA-Z]\w{2}", page_text)
+        
+        for word in words:
+            # filter out long strings
+            if len(word)<=14:
+                self.wordlist.add(word.lower())
+        
+        return
+    
+    def mangle(self, word):
+        year = datetime.now().year
+        suffixes = ["", "1", "!", "year"]
+        mangled = []
+        
+        for password in (word, word.capitalize()):
+            for suffix in suffixes:
+                mangled.append("%s%s" % (password, suffix))
+        
+        return mangled
