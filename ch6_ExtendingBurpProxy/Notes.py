@@ -24,9 +24,18 @@
 #   - Click 𝘚𝘵𝘢𝘳𝘵 𝘈𝘵𝘵𝘢𝘤𝘬
 #   - New window with fuzzing results will apear
 
-# 𝗧𝗲𝘀𝘁 𝗯𝗵𝗽_wordlist.𝗽𝘆:
+# 𝗧𝗲𝘀𝘁 𝗯𝗵𝗽_𝘄𝗼𝗿𝗱𝗹𝗶𝘀𝘁.𝗽𝘆:
 #   - Add to extensions: Extensions >>> Add: Set Extension type to Python, Extension file bhp_fuzzer.py location
 #   - >>> Dashboard: Select New live task, select "Add all links observed in traffic through Proxy to site map"
 #   - Get results from Targe, opening browse as in last step
 #   - Select all targets, rightClick: Select Extensions, create Wordlist
 #   - >>> Extender >>> Output: Check that the wordlist was created
+
+# 𝗨𝘀𝗶𝗻𝗴 𝗮 𝘃𝗲𝗻𝘃 (for when PEP 668):
+#   - python3 -m venv <venv name>
+#   - source <venv name>/bin/activate 
+#   - Do what you must, safely in the env
+#   - deactivate <once you're done>
+ 
+
+
