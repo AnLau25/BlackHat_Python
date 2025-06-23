@@ -101,7 +101,8 @@ if __name__ == '__main__':
     trojan = Trojan('abc')
     trojan.run()        
 
-# Test:
+# 𝗧𝗲𝘀𝘁:
+#
 # python3 git_trojan.py  
 # [*] Attempting to retrieve dirlister
 # [*] Attempting to retrieve environment
