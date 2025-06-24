@@ -49,3 +49,10 @@ def run():
 
 if __name__ == '__main__':
     screenshot()
+
+# 𝗧𝗲𝘀𝘁:
+# 
+# cd C:\User\Documents <to wherever the file is>
+# python3 screenshotter.py 
+# 
+# Check for img in script folder
