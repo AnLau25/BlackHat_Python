@@ -29,11 +29,11 @@ def screenshot(name='screenshot'):
     screenshot.SaveBitmapFile(mem_dc, f'{name}.bmp')
     
     mem_dc.DeleteDC()
-    win32gui.DeleteObject(screenshot.GetHandle)
+    win32gui.DeleteObject(screenshot.GetHandle())
 
 def run():
     screenshot()
-    with open('screenshot.bmp') as f:
+    with open('screenshot.bmp', 'rb') as f:
         img = f.read()
     return img
 
