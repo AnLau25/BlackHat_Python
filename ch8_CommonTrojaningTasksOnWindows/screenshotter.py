@@ -14,4 +14,14 @@ def get_dimensions():
     top = win32api.GetSystemMetrics(win32con.SM_YVIRTUALSCREEN)
     return (width, height, left, top)
 
- 
+def screenshot(name='screenshot'):
+    hdesktop = win32gui.GetDesktopWindow()
+    width, height, left, top = get_dimensions()
+    
+    desktop_dc = win32gui.GetWindowDC(hdesktop)
+    img_dc = win32ui.CreateDCFromHandle(desktop_dc)
+    mem_dc = img_dc.CreateCompatibleDC()
+
+    screenshot = win32ui.CreateBitmap()
+    screenshot.CreateCompatibleBitmap(img_dc, width, height)
+    mem_dc.SelectObject(screenshot)
