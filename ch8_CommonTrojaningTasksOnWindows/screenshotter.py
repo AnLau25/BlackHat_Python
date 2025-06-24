@@ -25,3 +25,17 @@ def screenshot(name='screenshot'):
     screenshot = win32ui.CreateBitmap()
     screenshot.CreateCompatibleBitmap(img_dc, width, height)
     mem_dc.SelectObject(screenshot)
+    mem_dc.BitBlt((0,0), (width, height), img_dc, (left, top), win32con.SRCCOPY)
+    screenshot.SaveBitmapFile(mem_dc, f'{name}.bmp')
+    
+    mem_dc.DeleteDC()
+    win32gui.DeleteObject(screenshot.GetHandle)
+
+def run():
+    screenshot()
+    with open('screenshot.bmp') as f:
+        img = f.read()
+    return img
+
+if __name__ == '__main__':
+    screenshot()
