@@ -6,3 +6,12 @@ import win32api
 import win32con
 import win32gui
 import win32ui
+
+def get_dimensions():
+    width = win32api.GetSystemMetrics(win32con.SM_CXVIRTUALSCREEN)
+    height = win32api.GetSystemMetrics(win32con.SM_CYVIRTUALSCREEN)
+    left = win32api.GetSystemMetrics(win32con.SM_XVIRTUALSCREEN)
+    top = win32api.GetSystemMetrics(win32con.SM_YVIRTUALSCREEN)
+    return (width, height, left, top)
+
+ 
