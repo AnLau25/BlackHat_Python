@@ -11,7 +11,7 @@ import time
 import win32api
 
 class LASTINPUTINFO(Structure): # Time stamp in millisecond of the last input recorded
-    fields_ = [('cbSize', 'c_uint'), ('dwTime', 'c_ulong')]
+    fields_ = [('cbSize', c_uint), ('dwTime', c_ulong)]
     
 def get_last_input(): # Determine the last time of inut
     struct_lastinputinfo = LASTINPUTINFO()
@@ -62,6 +62,7 @@ class Detector:
         
         last_input = get_last_input() # Retreive elapsed time
         if last_input>=max_input_threshold:
+            print("No input for 30s")
             sys.exit(0)
         
         detection_complete = False
@@ -72,14 +73,16 @@ class Detector:
                 
                 if elapsed<=double_click_threshold: # Compare to threshold to see if double click
                     self.mouse_clicks -= 2
-                    self.mouse_clicks += 1
+                    self.double_clicks += 1
                     if first_double_click is None:
                         first_double_click = time.time()
                     elif self.double_clicks >= max_double_clicks: # Check for click event streaming
                         if (keypress_time - first_double_click <= (max_double_clicks*double_click_threshold)):
+                            print("Bot-like double-click behavior")
                             sys.exit(0) # Out if too many double clicks in succesion (odd behaviour)
+                
                 if (self.keystrokes>=max_keystrokes and self.double_clicks>=max_double_clicks and self.mouse_clicks>=max_mouse_clicks): 
-                        detection_complete==True # Check if we've reached the max to be concidered safe
+                        detection_complete = True # Check if we've reached the max to be concidered safe
     
                 previous_timestamp = keypress_time
             elif keypress_time is not None:
