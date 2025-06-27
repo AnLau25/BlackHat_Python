@@ -17,5 +17,13 @@ def generate(): # Generates the public/private key pair
     with open('key.pub', 'web') as f:
         f.write(public_key)
         
+def get_rsa_cipher(keytype): # Pass pub or pri to get the keys
+    with open(f'key.{keytype}') as f:
+        key = f.read()
+    
+    rsakey = RSA.import_key(key)
+    return (PKCS1_OAEP.new(rsakey), rsakey.size_in_bytes())
 
+
+ 
 
