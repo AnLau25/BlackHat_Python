@@ -64,7 +64,8 @@ def decrypt(encrypted): # Lit the reverse of encrypt (Walking backwards)
     return plaintext
 
 if __name__=='__main__':
-    generate()
+    generate() 
+    # generate should only run once, since unless you want re-generate the keys every time 
     
     time.sleep(1)
     
