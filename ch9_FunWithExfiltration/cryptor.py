@@ -24,6 +24,17 @@ def get_rsa_cipher(keytype): # Pass pub or pri to get the keys
     rsakey = RSA.import_key(key)
     return (PKCS1_OAEP.new(rsakey), rsakey.size_in_bytes())
 
-
- 
+def encrypt(plaintext):
+    compressed_text = zlib.compress(plaintext)
+    
+    session_key =  get_random_bytes(16)
+    cipher_aes = AES.new(session_key, AES.MODE_EAX)
+    ciphertext, tag = cipher_aes.encrypt_and_digest(compressed_text)
+    
+    cipher_rsa, _ = get_rsa_cipher('pub')
+    encrypted_session_key = cipher_rsa.encrypt(session_key)
+    
+    msg_payload = encrypted_session_key + cipher_aes.nonce + tag + ciphertext
+    encrypted = base64.encodebytes(msg_payload)
+    return encrypted 
 
