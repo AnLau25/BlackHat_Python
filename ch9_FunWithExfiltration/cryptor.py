@@ -5,6 +5,7 @@ from io import BytesIO
 
 import base64
 import zlib
+import time
 
 def generate(): # Generates the public/private key pair
     new_key = RSA.generate(2048)
@@ -61,4 +62,16 @@ def decrypt(encrypted): # Lit the reverse of encrypt (Walking backwards)
     
     plaintext = zlib.decompress(decrypted) # Decrypt plain text
     return plaintext
+
+if __name__=='__main__':
+    generate()
+    
+    time.time(1)
+    
+    plaintext = b'Fernando is faster than you'
+    encrypted = encrypt(plaintext)
+    print(encrypted)
+    print(decrypt(encrypted))
+    
+
 
