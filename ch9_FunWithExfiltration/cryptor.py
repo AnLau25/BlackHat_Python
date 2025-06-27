@@ -10,12 +10,12 @@ import time
 def generate(): # Generates the public/private key pair
     new_key = RSA.generate(2048)
     private_key =  new_key.export_key()
-    public_key = new_key.public_key()
+    public_key = new_key.publickey().export_key()
     
     with open('key.pri', 'wb') as f:
         f.write(private_key)
     
-    with open('key.pub', 'web') as f:
+    with open('key.pub', 'wb') as f:
         f.write(public_key)
         
 def get_rsa_cipher(keytype): # Pass pub or pri to get the keys
@@ -66,7 +66,7 @@ def decrypt(encrypted): # Lit the reverse of encrypt (Walking backwards)
 if __name__=='__main__':
     generate()
     
-    time.time(1)
+    time.sleep(1)
     
     plaintext = b'Fernando is faster than you'
     encrypted = encrypt(plaintext)
