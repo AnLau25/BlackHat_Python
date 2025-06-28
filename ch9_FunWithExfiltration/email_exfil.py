@@ -26,4 +26,15 @@ def plain_email(subject, contents):
     time.sleep(1)
     server.quit()
 
+def outlook(subject, contents): # Windows specific
+    outlook = win32com.client.Dispatch("Outlook.Application")
+    # Outlook App Intsance
+    message = outlook.CreateItem(0)
+    message.DeleteAfterSubmit = True 
+    # Ensure the email obj is deleted after sending
+    message.Subject = subject # Populare ↓
+    message.Body = contents.decode() 
+    message.To = tgt_accts[0]
+    message.Send() # Send 
+
 
