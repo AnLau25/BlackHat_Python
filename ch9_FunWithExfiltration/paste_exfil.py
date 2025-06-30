@@ -39,3 +39,17 @@ def plain_paste(title, contents):
     print(r.status_code)
     print(r.text)
     # Check pastebin to see if it worked
+    
+# Suport functions
+def wait_for_browser(browser):
+    # Ensures the browser has finished it's events
+    while browser.ReadyState != 4 and browser.ReadyState != 'Complete':
+        time.sleep(0.1)     
+
+def random_sleep():
+    # Ensures random behaviour to bypass security
+    # Allows for task that do not gen events to execute in DOM (Document Object Model)
+    time.sleep(random.randint(5, 10))
+
+
+    
