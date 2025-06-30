@@ -30,7 +30,7 @@ def plain_paste(title, contents):
         'api_paste_name': title,
         'api_paste_code': contents.decode(),
         'api_dev_key': api_dev_key,
-        'api_use_key': api_user_key,
+        'api_user_key': api_user_key,
         'api_option': 'paste',
         'api_paste_private': 0,
     }
