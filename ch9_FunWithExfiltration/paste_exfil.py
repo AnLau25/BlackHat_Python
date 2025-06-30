@@ -79,8 +79,24 @@ def submit(ie, title, contents):
     
     random_sleep()
     wait_for_browser(ie)
-    
-    
 
+def ie_paste(title, contents):
+    ie = client.Dispatch('InternetExplorer.Application')
+    # New internet explorer COM instance
+    ie.Visible = 1 # Make visible, can make 0 for peak stealth
+    
+    
+    ie.Navigate('https://pastebin.com/login')
+    wait_for_browser(ie)
+    login(ie)
+    
+    ie.Navigate('https://pastebin.com/')
+    wait_for_browser(ie)
+    submit(ie, title, contents.decode())
+    
+    ie.Quit() # Kill when done
+    
+if __name__ == '__main__':
+    ie_paste('title', 'contents')
     
     
