@@ -61,10 +61,25 @@ def login(ie):
     
     random_sleep()
     
-    if ie.Document.forms[0].id == 'WO':
+    if ie.Document.forms[0].id == 'w0':
         ie.document.forms[0].submit()
     
     wait_for_browser(ie)
+
+def submit(ie, title, contents):
+    full_doc = ie.Document.all
+    for elem in full_doc: # Find in DOM
+        if elem.id == 'postform-name': # Where to put title
+            elem.setAttribute('value', title)
+        elif elem.id == 'postform-text': # Where to paste message
+            elem.setAttribute('value', contents)
+    
+    if ie.Document.forms[0].id == 'w0':
+        ie.document.forms[0].submit()
+    
+    random_sleep()
+    wait_for_browser(ie)
+    
     
 
     
