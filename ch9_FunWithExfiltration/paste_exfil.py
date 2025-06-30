@@ -10,7 +10,7 @@ import time
 
 # For auth
 username = 'TestForPy'
-pasword = 'seKret'
+password = 'seKret'
 api_dev_key = 'cd3xxx001xxx02'
 
 # logIn to paste bin
@@ -19,7 +19,7 @@ def plain_paste(title, contents):
     login_data = {
         'api_dev_key':api_dev_key,
         'api_user_name':username,
-        'api_user_pasword':pasword,
+        'api_user_password':password,
     }
     r = requests.post(login_url, data=login_data)
     api_user_key = r.text # retreive user key
@@ -51,5 +51,21 @@ def random_sleep():
     # Allows for task that do not gen events to execute in DOM (Document Object Model)
     time.sleep(random.randint(5, 10))
 
+def login(ie):
+    full_doc = ie.Document.all
+    for elem in full_doc: # Revew all elms in dom
+        if elem.id == "loginform-username": # User name field
+            elem.setAttribute('value', username)
+        elif elem.id == 'loginform-password': # Password field
+            elem.setAttribute('value', password)
+    
+    random_sleep()
+    
+    if ie.Document.forms[0].id == 'WO':
+        ie.document.forms[0].submit()
+    
+    wait_for_browser(ie)
+    
 
+    
     
