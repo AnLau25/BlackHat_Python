@@ -6,3 +6,6 @@ with open('C:\\Users\\User\\Documents\\Prog\\BlackHat_Python\\TestFolder\\Graph.
 with open('newGraph.pdf', 'wb') as f:
     f.write(decrypt(contents))
 # Result in ch9_FunWithExfiltration
+# Files to encrypt in TestFolder 
+# Encrypted past downloaded from pastebin into TestFolder
+
