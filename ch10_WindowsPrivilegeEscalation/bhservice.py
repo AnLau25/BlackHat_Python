@@ -50,3 +50,11 @@ class BHServerSvc(win32serviceutil.ServiceFramework): # Service skeleton
             shutil.copy(src, self.vbs)
             subprocess.call("cscript.exe %s" % self.vbs, shell=False)
             os.unlink()
+
+if __name__=='__main__':
+    if len(sys.argv) == 1:
+        servicemanager.Initialize()
+        servicemanager.PrepareToHostSingle()
+        servicemanager.StartServiceCtrlDispatcher()
+    else:
+        win32serviceutil.HandleCommandLine(BHServerSvc)
