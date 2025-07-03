@@ -3,3 +3,16 @@
 # With this, we can figure out from what files in the process being created
 # Then we interject the file-creation processes and inject the sripting code
 # This way, the script will be included in the process and executed
+
+import os
+import servicemanager
+import shutil
+import subprocess
+import sys
+
+import win32event
+import win32service
+import win32serviceutil
+
+SRCDIR = 'C:\\Users\\User\\Documents\\Prog\\BlackHat_Python\\ch10_WindowsPrivilegeEscalation'
+TGTDIR = 'C:\\Users\\User\\Documents\\Prog\\BlackHat_Python\\TestFolder'
