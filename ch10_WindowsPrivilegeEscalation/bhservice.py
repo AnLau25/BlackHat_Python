@@ -58,3 +58,14 @@ if __name__=='__main__':
         servicemanager.StartServiceCtrlDispatcher()
     else:
         win32serviceutil.HandleCommandLine(BHServerSvc)
+        
+# 𝗧𝗲𝘀𝘁:
+# 
+# In CMD: 
+# pyinstaller -F --hiddenimport win32timezone bhservice.py <generates executable, mus be re-generated is bhservice is ever modified> 
+# cd dist
+# bhservice.exe install
+# bhservice.exe start <executes the program as described> 
+# 
+# bhservice.exe stop <terminates the program> 
+# bhservice remove <kills the process> 
