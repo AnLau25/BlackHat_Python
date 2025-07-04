@@ -59,9 +59,8 @@ if __name__=='__main__':
     else:
         win32serviceutil.HandleCommandLine(BHServerSvc)
         
-# 𝗧𝗲𝘀𝘁:
+# 𝗧𝗲𝘀𝘁 𝗶𝗻 𝗖𝗠𝗗:
 # 
-# In CMD: 
 # pyinstaller -F --hiddenimport win32timezone bhservice.py <generates executable, mus be re-generated is bhservice is ever modified> 
 # cd dist
 # bhservice.exe install
