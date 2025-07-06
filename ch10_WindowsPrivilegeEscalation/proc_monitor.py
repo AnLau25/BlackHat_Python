@@ -9,15 +9,18 @@ import wmi
 
 def get_proc_pivileges(pid):
     try:
-        hproc = win32api.OpenProcess(
+        hproc = win32api.OpenProcess( # use pid to get proc handle 
             win32api.PROCESS_QUERY_INFORMATION, False, pid
         )
+        # Crack the proc token
         htok = win32security.OpenProcessToken(hproc, win32con.TOKEN_QUERY)
+        # Get full list of privileges w Enabled/Desabled
         privs = win32security.GetTokenInformation(htok, win32security.TokenPrivileges)
         privileges = ''
         for priv_id, flags in privs:
+            # Check for enabled privileges
             if flags == (win32security.SE_PRIVILEGE_ENABLED | win32security.SE_PRIVILEGE_ENABLED_BY_DEFAULT):
-                privileges += f'{win32security.LookupPrivilegeName(None, priv_id)}|'
+                privileges += f'{win32security.LookupPrivilegeName(None, priv_id)}|' # Get privilege name
     except Exception:
         privileges = 'N/A'
     
@@ -45,7 +48,7 @@ def monitor():
             pid = new_process.ProcessId
             proc_owner = new_process.GetOwner() # To determine who spawned the proc
             
-            privileges = 'N/A'
+            privileges = get_proc_pivileges(pid)
             process_log_message = ( # Print findings
                 f'{cmndline}, {create_date}, {executable}',
                 f'{parent_pid}, {pid}, {proc_owner}, {privileges}'
