@@ -7,11 +7,11 @@ import win32con
 import win32security
 import wmi
 
+PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+
 def get_proc_pivileges(pid):
     try:
-        hproc = win32api.OpenProcess( # use pid to get proc handle 
-            win32api.PROCESS_QUERY_INFORMATION, False, pid
-        )
+        hproc = win32api.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, pid)
         # Crack the proc token
         htok = win32security.OpenProcessToken(hproc, win32con.TOKEN_QUERY)
         # Get full list of privileges w Enabled/Desabled
@@ -19,10 +19,11 @@ def get_proc_pivileges(pid):
         privileges = ''
         for priv_id, flags in privs:
             # Check for enabled privileges
-            if flags == (win32security.SE_PRIVILEGE_ENABLED | win32security.SE_PRIVILEGE_ENABLED_BY_DEFAULT):
-                privileges += f'{win32security.LookupPrivilegeName(None, priv_id)}|' # Get privilege name
-    except Exception:
-        privileges = 'N/A'
+            if flags & win32security.SE_PRIVILEGE_ENABLED:
+                priv_name = win32security.LookupPrivilegeName(None, priv_id)
+                privileges += f'{priv_name}|' # Get privilege name
+    except Exception as e:
+        privileges = f'Error: {e}'
     
     return privileges
 
