@@ -22,6 +22,8 @@ def get_proc_pivileges(pid):
             if flags & win32security.SE_PRIVILEGE_ENABLED:
                 priv_name = win32security.LookupPrivilegeName(None, priv_id)
                 privileges += f'{priv_name}|' # Get privilege name
+            elif privileges==' ':
+                privileges = 'N/A'
     except Exception as e:
         privileges = f'Error: {e}'
     
@@ -70,3 +72,6 @@ if __name__ == '__main__':
 # python proc_monitor.py
 # ('"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" --type=renderer --extension-process --enable-dinosaur-easter-egg-alt-images --no-pre-read-main-dll --video-capture-use-gpu-memory-buffer --lang=en-US --device-scale-factor=1.25 --num-raster-threads=2 --enable-main-frame-before-activation --renderer-client-id=2532 --time-ticks-at-unix-epoch=-1751562848156566 --launch-time-ticks=83545087428 --metrics-shmem-handle=4320,i,12564247726896596968,16379157665239309029,2097152 --field-trial-handle=2116,i,3987644641829430670,16292763222225121616,262144 --variations-seed-version=20250702-180038.517000 --mojo-platform-channel-handle=11592 /prefetch:2, 20250704122622.065611-240, C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe', "13544, 8580, ('DESKTOP-D9T7SMS', 0, 'User'), N/A")
 # <Test by opening various programs to check the procs they generate, try sing-out/in>
+# 
+# 𝗜𝗻 𝗖𝗠𝗗 𝗮𝘀 𝗮𝗱𝗺𝗶𝗻:
+# ('C:\\Windows\\system32\\svc.exe -k netsvcs -p -s wuaserv, 20141707.052256-240, C:\\Windows\\system32\\svc.exe', "92, 608, ('NT AUTHORITY', 0, 'SYSTEM'), SeTcbPrivilege|SeIncreaseBasePriorityPrivilege|SeCreatePagefilePrivilege|SeDebugPrivilege|SeAuditPrivilege|SeChangeNotifyPrivilege|SeImpersonatePrivilege|SeCreateGlobalPrivilege|SeCreateSymbolicLinkPrivilege|")
