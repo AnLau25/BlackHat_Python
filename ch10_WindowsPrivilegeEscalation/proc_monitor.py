@@ -7,6 +7,23 @@ import win32con
 import win32security
 import wmi
 
+def get_proc_pivileges(pid):
+    try:
+        hproc = win32api.OpenProcess(
+            win32api.PROCESS_QUERY_INFORMATION, False, pid
+        )
+        htok = win32security.OpenProcessToken(hproc, win32con.TOKEN_QUERY)
+        privs = win32security.GetTokenInformation(htok, win32security.TokenPrivileges)
+        privileges = ''
+        for priv_id, flags in privs:
+            if flags == (win32security.SE_PRIVILEGE_ENABLED | win32security.SE_PRIVILEGE_ENABLED_BY_DEFAULT):
+                privileges += f'{win32security.LookupPrivilegeName(None, priv_id)}|'
+    except Exception:
+        privileges = 'N/A'
+    
+    return privileges
+
+
 def log_to_file(message):
     with open('process_monitor_log.scv', 'a') as fd:
         fd.write(f'{message}\r\n')
@@ -41,7 +58,7 @@ def monitor():
 if __name__ == '__main__':
     monitor()
         
-# 𝗧𝗲𝘀𝘁:
+# 𝗧𝗲𝘀𝘁 𝟭:
 # 
 # 𝘱𝘳𝘰𝘤𝘦𝘴𝘴_𝘮𝘰𝘯𝘪𝘵𝘰𝘳_𝘭𝘰𝘨.𝘴𝘤𝘷 will apear in same folder, indicates the info we wants to catch
 # 
