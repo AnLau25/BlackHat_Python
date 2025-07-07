@@ -64,7 +64,7 @@ def monitor(path_to_watch):
         except Exception:
             pass
 
-if __name__ == 'main':
+if __name__ == '__main__':
     for path in PATHS: 
         # Lauch monitor for all paths in dir list
         monitor_thread = threading.Thread(target=monitor, args=(path,))
