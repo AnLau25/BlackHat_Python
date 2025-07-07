@@ -11,6 +11,7 @@ FILE_RENAMED_FROM = 4
 FILE_RENAMED_TO = 5
 
 FILE_LIST_DIR = 0x0001
+# Dir list to monitor
 PATHS = ['C:\\WINDOWS\\Temp', tempfile.gettempdir()]
 
 def monitor(path_to_watch):
@@ -22,7 +23,7 @@ def monitor(path_to_watch):
         win32con.OPEN_EXISTING,
         win32con.FILE_FLAG_BACKUP_SEMANTICS,
         None
-    )
+    ) # Monitoring thread for all dirs in watch path
     while True:
         try:
             results = win32file.ReadDirectoryChangesW(
@@ -37,8 +38,8 @@ def monitor(path_to_watch):
                 win32con.FILE_NOTIFY_CHANGE_SIZE,
                 None,
                 None                
-            )
-            for action, file_name in results:
+            ) # Call 𝘙𝘦𝘢𝘥𝘋𝘪𝘳𝘦𝘤𝘵𝘰𝘳𝘺𝘊𝘩𝘢𝘯𝘨𝘦𝘴𝘞 
+            for action, file_name in results: # Print relevant info
                 full_filename = os.path.join(path_to_watch, file_name)
                 if action == FILE_CREATED:
                     print(f'[+] Created {full_filename}')
@@ -62,4 +63,9 @@ def monitor(path_to_watch):
                     print(f'[?] Unknown action on {full_filename}')
         except Exception:
             pass
-        
+
+if __name__ == 'main':
+    for path in PATHS: 
+        # Lauch monitor for all paths in dir list
+        monitor_thread = threading.Thread(target=monitor, args=(path,))
+        monitor_thread.start()
