@@ -9,21 +9,6 @@ import wmi
 
 PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
 
-# To be moved latter
-'''
-def inject_code(full_filename, contents, extension): 
-    # Handles code injection
-    if FILE_TYPES[extension][0].strip() in contents:
-        return
-    
-    # Write marker and code to inject
-    full_contents = FILE_TYPES[extension][0]
-    full_contents += FILE_TYPES[extension][1]
-    full_contents += contents
-    with open(full_filename, 'w') as f:
-        f.write(full_contents)
-    print('\\o/ Injected Code')
-'''
 def get_proc_pivileges(pid):
     try:
         hproc = win32api.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, pid)
