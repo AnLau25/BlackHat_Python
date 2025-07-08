@@ -69,3 +69,21 @@ if __name__ == '__main__':
         # Lauch monitor for all paths in dir list
         monitor_thread = threading.Thread(target=monitor, args=(path,))
         monitor_thread.start()
+
+# 𝗧𝗲𝘀𝘁:
+# C:\Users\User>cd C:\Windows\temp
+# C:\Windows\Temp>echo hello > fileTest.bat
+# C:\Windows\Temp>rename filetest.bat file2test
+# C:\Windows\Temp>del file2test
+# C:\Windows\Temp>
+#
+# -------------------- have 𝘧𝘪𝘭𝘦_𝘮𝘰𝘯𝘪𝘵𝘰𝘳 run in another tab -------------------- 
+#
+# C:\BlackHat_Python\ch10_WindowsPrivilegeEscalation> python file_monitor.py
+# [+] Created C:\WINDOWS\Temp\fileTest.bat
+# [*] Modified C:\WINDOWS\Temp\fileTest.bat
+# [vvv] Dumpting contents...
+# hello 
+# [>] Renamed from C:\WINDOWS\Temp\fileTest.bat
+# [<] Renamed to C:\WINDOWS\Temp\file2test
+# [-] Deleted C:\WINDOWS\Temp\file2test
