@@ -1,0 +1,24 @@
+- Forensics is the field that studies what happened during an attack, or if there was even one to beggin with.
+  (Picture forensics dep in CSI but cyber edition)
+- Python created the 𝘝𝘰𝘭𝘢𝘵𝘪𝘭𝘪𝘵𝘺 framework for that purpose, but, it can also be exploited for offencive purposes
+
+𝗜𝗻𝘁𝗮𝗹𝗹𝗶𝗻𝗴 𝗶𝗻 𝗹𝗶𝗻𝘂𝘅:
+
+- Create a venv Volatility
+⁡⁢⁣⁣  | python3 -m venv volatility
+  | source volatility/bin/activate⁡
+  ⁡⁢⁣⁣| cd volatility ⁡<remember to disconect from venv when done>
+
+- Install Volatility3 from gitHub and pycryptodome
+  ⁡⁢⁣⁣| git clone https://github.com/volatilityfoundation/volatility3.git 
+  | pip install pycryptodome 
+
+⁡⁢⁣⁣-Test installati⁡⁡on:⁡
+  ⁡⁢⁣⁣| python vol.py  --help ⁡<is it works, look at plugins>
+  ⁡⁢⁣⁣| ----------------------------------------------------⁡
+  ⁡⁢⁣⁣| cd volatility3/framework/plugins/linux
+  | ls⁡ <will show all linux-related plugins>
+
+- Go through OS plugins and read to better understand the framework
+⁡
+    ⁡
