@@ -22,3 +22,6 @@
 - Go through OS plugins and read to better understand the framework
 ⁡
     ⁡
+𝗚𝗲𝗻𝗲𝗿𝗮𝗹 𝗿𝗲𝗰𝗼𝗻𝗻𝗮𝗶𝘀𝘀𝗮𝗻𝗰𝗲:
+
+- 
