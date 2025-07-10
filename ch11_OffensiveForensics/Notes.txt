@@ -12,8 +12,8 @@
 - Install Volatility3 from gitHub and pycryptodome
   ⁡⁢⁣⁣| git clone https://github.com/volatilityfoundation/volatility3.git 
   | pip install pycryptodome 
-
-⁡⁢⁣⁣-Test installati⁡⁡on:⁡
+⁡⁣⁢⁣
+⁡- Test installati⁡⁡on:⁡
   ⁡⁢⁣⁣| python vol.py  --help ⁡<is it works, look at plugins>
   ⁡⁢⁣⁣| ----------------------------------------------------⁡
   ⁡⁢⁣⁣| cd volatility3/framework/plugins/linux
@@ -22,6 +22,33 @@
 - Go through OS plugins and read to better understand the framework
 ⁡
     ⁡
-𝗚𝗲𝗻𝗲𝗿𝗮𝗹 𝗿𝗲𝗰𝗼𝗻𝗻𝗮𝗶𝘀𝘀𝗮𝗻𝗰𝗲:
+𝗚𝗲𝗻𝗲𝗿𝗮𝗹 𝗿𝗲𝗰𝗼𝗻𝗻𝗮𝗶𝘀𝘀𝗮𝗻𝗰𝗲 𝗼𝗻 𝗞𝗮𝗹𝗶 𝗟𝗶𝗻𝘂𝘅 (excrusiatng process, not recommended):
 
-- 
+- Get the memory dump:
+  + The memdump is what you are gonna be working with, is the state of the machine, so yeah, you need it
+  + For Linux, we are gonna use LiME, so s͟t͟e͟p o͟n͟e i͟s d͟o͟w͟n͟l͟o͟a͟d͟i͟n͟g L͟i͟M͟E
+    Attempt:
+    ⁡⁢⁣⁣| git clone https://github.com/504ensicsLabs/LiME.git
+    | cd LiME/src
+    | make
+    | sudo apt install linux-headers-$(uname -r | sed 's/-generic//')⁡
+    └─If it works -> next step; else:
+      If error: ⁡⁣⁢⁡⁣⁢⁣Unable to locate package linux-headers-6.6.9-amd64⁡
+      Happens cause Kali does not provide kernels for all header builds
+      Solve by installing headers:
+    ⁡⁢⁣⁣| sudo apt install linux-headers-amd64
+    | ls /lib/modules/$(uname -r)/build
+    | cd LiME/src
+    | make⁡
+  + S͟t͟e͟p 2, i͟s e͟x͟t͟r͟a͟c͟t͟i͟n͟g t͟h͟e f͟i͟l͟e (memory dump):
+    ⁡⁢⁣⁣| sudo insmod /home/kali/LiME/src/lime.ko "path=/home/kali/memdump/mem.lime format=lime"⁡
+    └─If it works -> next step; else:
+      If error: ⁡⁣⁢⁣insmod: ERROR: could not insert module ...: File exists⁡
+      Happens caus LiME was already loaded confirm with ⁡⁢⁣⁣lsmod | grep lime⁡.
+    Solve with turn off, turn on: 
+   ⁡⁢⁣⁣ | sudo rmmod lime
+    | sudo insmod /home/kali/LiME/src/lime.ko "path=/home/kali/memdump/mem.lime format=lime"  ⁡
+  + Then verify that the lime file is in the provided path ↑
+  + Should look like "mem.lime"
+
+ 
