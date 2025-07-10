@@ -22,7 +22,7 @@
 - Go through OS plugins and read to better understand the framework
 ⁡
     ⁡
-𝗚𝗲𝗻𝗲𝗿𝗮𝗹 𝗿𝗲𝗰𝗼𝗻𝗻𝗮𝗶𝘀𝘀𝗮𝗻𝗰𝗲 𝗼𝗻 𝗞𝗮𝗹𝗶 𝗟𝗶𝗻𝘂𝘅 (excrusiatng process, not recommended):
+𝗚𝗲𝗻𝗲𝗿𝗮𝗹 𝗿𝗲𝗰𝗼𝗻𝗻𝗮𝗶𝘀𝘀𝗮𝗻𝗰𝗲 𝗼𝗻 𝗞𝗮𝗹𝗶 𝗟𝗶𝗻𝘂𝘅 (excruciating process, not recommended):
 
 - Get the memory dump:
   + The memdump is what you are gonna be working with, is the state of the machine, so yeah, you need it
@@ -51,4 +51,40 @@
   + Then verify that the lime file is in the provided path ↑
   + Should look like "mem.lime"
 
- 
+- Read the memorydump:
+  ⁡⁢⁣⁣| python3 vol.py -f ~/memdump.lime --symbol linux/6.6.9-amd64.json linux.pslist⁡
+  └─If that doesn't work, it's cause ur missing a symbol table for your linux type, so u gotta make one
+  | 
+
+- Make a Kali Linux 6.6.9-amd64 symbol table:
+  + Must be undecripted AND must contain dawrf symbols for later when put in dawrf2json
+  + You gotta start by getting the kernel (vmlinux) download from gitHub:
+    ⁡⁢⁣⁣| git clone --depth=1 --branch v6.6.9 https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+    | ls linux-stable
+    | cd linux-stable
+    | make defconfig⁡
+  + For the love of god, check your debug, it takes hours to get the vmlinux configured:
+    | ⁡⁢⁣⁣grep CONFIG_DEBUG_INFO .config
+⁡    └─If ⁡⁣⁢⁣CONFIG_DEBUG_INFO=n⁡
+    ⁡⁢⁣⁣| scripts/config --enable DEBUG_INFO
+    | scripts/config --enable DEBUG_KERNEL
+    | scripts/config --enable DEBUG_INFO_REDUCED⁡
+    └─Else if ⁡⁣⁢⁣CONFIG_DEBUG_INFO_NONE=y⁡
+    ⁡⁢⁣⁣| scripts/config --disable CONFIG_DEBUG_INFO_NONE
+    | scripts/config --enable CONFIG_DEBUG_INFO
+    | scripts/config --enable CONFIG_DEBUG_INFO_DWARF4⁡⁡
+  + Make the vmlinux (go eat, go out, touch grass, its an endless process):
+    ⁡⁢⁣⁣| scripts/config --enable DEBUG_INFO
+    | make -j$(nproc)⁡
+  + Verif that the wanker is what we need:
+    ⁡⁢⁣⁣| file vmlinux ⁡
+    └─ should say ⁡⁣⁢⁣not stripped⁡
+  + Now, get dawrf2json to create the symbol table:
+    ⁡⁢⁣⁣| cd /home/kali/volatility/volatility3/
+    | git clone https://github.com/volatilityfoundation/dwarf2json
+    | cd dwarf2json
+    | go build⁡
+    └─ If you don't have golang, it will not work so, if not installed yet:
+    ⁡⁢⁣⁣| sudo apt install golang⁡
+  + Make symbol table (and pray):
+    ⁡⁢⁣⁣| /home/kali/volatility/volatility3/dwarf2json/dwarf2json/dwarf2json linux --elf /home/kali/vmlinux_extract/linux-stable/vmlinux > /home/kali/volatility/volatility3/volatility3/framework/symbols/linux/linux-6.6.9-amd64.json⁡
