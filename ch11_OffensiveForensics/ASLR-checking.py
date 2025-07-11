@@ -54,3 +54,12 @@ class AslrCheck(interfaces.plugins.PluginInterface):
                 element_type = int,  description = "Process ID to include (all other processes are excluded)",
                 optional = True),
             ]
+    
+    @classmethod #handles the optional pIDs, checking wich ones are in the list
+    def create_pid_filter(cls, pid_list: List[int] = None) -> Callable[[interfaces.objects.ObjectInterface], bool]:
+        filter_func = lambda _: False
+        pid_list = pid_list or []
+        filter_list = [x for x in pid_list if x is not None]
+        if filter_list:
+            filter_func = lambda x: x.UniqueProcessId not in filter_list
+        return filter_func
