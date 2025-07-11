@@ -87,5 +87,5 @@ if __name__=="__main__":
 # Succes (200: http://testphp.vulnweb.com/index.bak)
 # Succes (200: http://testphp.vulnweb.com/index.php)...
 #
-# Cut of the sake of my sanity, but it returns a lot of links   
+# Cut for the sake of my sanity, but it returns a lot of links   
 # Again, keep in mind, this is OWASP's vulnerable web
