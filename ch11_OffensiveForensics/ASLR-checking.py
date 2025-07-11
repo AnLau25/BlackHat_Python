@@ -12,6 +12,11 @@ import logging
 import os
 import pefile
 
+vollog = logging.getLogger(__name__)
+
+IMAGE_DLL_CHARACTERISTICS_DYNAMIC_BASE = 0x0040
+IMAGE_FILE_RELOCS_STRIPPED = 0x0001
+
 def check_aslr(pe): # pass pe to check_asrl
     # parse pe
     pe.parse_data_directories([pefile.DIRECTORY_ENTRY['IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG']])
