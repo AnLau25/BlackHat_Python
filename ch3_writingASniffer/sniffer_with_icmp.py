@@ -103,7 +103,7 @@ if __name__=='__main__':
     sniff(host)
     
 # Output:⁡⁢⁣⁢*⁡
-# Protocol: ICMP 142.250.217.238 -> 10.0.2.15
+# Protocol: ICMP 142.258.217.238 -> 10.0.0.15
 # Version: 4
 # Header Length: 5 TTL: 116
 # ICMP -> Type: 0 Code: 0
