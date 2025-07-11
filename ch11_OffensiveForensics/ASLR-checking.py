@@ -27,3 +27,25 @@ def check_aslr(pe): # pass pe to check_asrl
     else:
         aslr = True
     return aslr
+
+class AslrCheck(interfaces.plugins.PluginInterface):
+# Inherits from from the PlugInInterface obj
+    @classmethod
+    def get_requirements(cls):
+       # Define requirements
+        return [
+            requirements.TranslationLayerRequirement( # Mem layer requirement
+                name='primary', description='Memory layer for the kernel',
+                architectures=["Intel32", "Intel64"]),
+
+            requirements.SymbolTableRequirement( # Symbols table
+                name="nt_symbols", description="Windows kernel symbols"),
+                
+            requirements.PluginRequirement( # Get all process from memory dump to create PE file
+                name='pslist', plugin=pslist.PsList, version=(1, 0, 0)),
+            
+            requirements.ListRequirement( # Pass a list for pIDs, limiting the check to those processes
+                name = 'pid', 
+                element_type = int,  description = "Process ID to include (all other processes are excluded)",
+                optional = True),
+            ]
