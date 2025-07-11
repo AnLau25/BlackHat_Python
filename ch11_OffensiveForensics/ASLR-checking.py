@@ -1,3 +1,10 @@
+# ASLR protection is short for Address Space Layout Randomization
+# It is a defencive technique that mixes up the addrs space of vulnerable processes
+# It affects the virtual mem location of heaps, stacks and other operating system allocs.
+# This means that the attacker cannot determine the  addr space of the attacked proc.
+# ASLR was first ussed since Windows Vista and is everywhere now, or almost
+# Testing allows to check if there is any weak link that escapes ASLR's protection
+
 from typing import Callable, List
 
 from volatility.framework import constants, exceptions, interfaces, renderers
