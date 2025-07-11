@@ -124,3 +124,17 @@ class AslrCheck(interfaces.plugins.PluginInterface):
                         format_hints.Hex(pe.OPTIONAL_HEADER.ImageBase),
                         aslr,
                         ))
+            
+    def run(self):
+        # use 𝘱𝘭𝘪𝘴𝘵 plug in to get proc list
+        procs = pslist.PsList.list_processes(self.context, 
+                                             self.config["primary"], 
+                                             self.config["nt_symbols"],
+                                             filter_func = self.create_pid_filter(self.config.get('pid', None)))
+        # return results ussing the 𝘛𝘳𝘦𝘦𝘎𝘳𝘪𝘥 renderer, so each proc output show in one line
+        return renderers.TreeGrid([
+            ("PID", int), 
+            ("Filename", str), 
+            ("Base", format_hints.Hex), 
+            ("ASLR", bool)],
+            self._generator(procs))
