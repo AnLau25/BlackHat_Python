@@ -55,7 +55,7 @@ class AslrCheck(interfaces.plugins.PluginInterface):
                 optional = True),
             ]
     
-    @classmethod #handles the optional pIDs, checking wich ones are in the list
+    @classmethod # handles the optional pIDs, checking wich ones are in the list
     def create_pid_filter(cls, pid_list: List[int] = None) -> Callable[[interfaces.objects.ObjectInterface], bool]:
         filter_func = lambda _: False
         pid_list = pid_list or []
@@ -63,3 +63,64 @@ class AslrCheck(interfaces.plugins.PluginInterface):
         if filter_list:
             filter_func = lambda x: x.UniqueProcessId not in filter_list
         return filter_func
+
+    def _generator(self, procs):
+        # Structure where we store the Proces Env. Block(PEB) of each proc
+        pe_table_name = intermed.IntermediateSymbolTable.create(
+            self.context, 
+            self.config_path,
+            "windows", 
+            "pe", 
+            class_types=extensions.pe.class_types)
+
+        procnames = list()
+        for proc in procs:
+            procname = proc.ImageFileName.cast("string", max_length=proc.ImageFileName.vol.count, errors='replace')
+            if procname in procnames:
+                continue
+            procnames.append(procname)
+
+            proc_id = "Unknown"
+            try:
+                proc_id = proc.UniqueProcessId
+                proc_layer_name = proc.add_process_layer()
+            except exceptions.InvalidAddressException as e:
+                vollog.error(f"Process {proc_id}: invalid address {e} in layer {e.layer_name}")
+                continue
+
+            peb = self.context.object( # create peb obj
+                    self.config['nt_symbols'] + constants.BANG + "_PEB",
+                    layer_name = proc_layer_name,
+                    offset = proc.Peb)
+           
+            try:
+                dos_header = self.context.object(
+                        pe_table_name + constants.BANG + "_IMAGE_DOS_HEADER",
+                        offset=peb.ImageBaseAddress, 
+                        layer_name=proc_layer_name)
+            except Exception as e:
+                continue
+
+            pe_data = io.BytesIO()
+            for offset, data in dos_header.reconstruct():
+                pe_data.seek(offset)
+                pe_data.write(data)
+            pe_data_raw = pe_data.getvalue()
+            # The retreived PEB gets stored into a file
+            # As it is the intel src of a proc
+            pe_data.close()
+
+            try:
+                pe = pefile.PE(data=pe_data_raw)
+            except Exception as e:
+                continue
+            
+            # Result of trating 𝘱𝘦𝘣 goes into check_asrl as pe
+            aslr = check_aslr(pe)
+
+            # Yield tupple result containing pID, proc name, proc mem addr and bool return of ASRL 
+            yield (0, (proc_id, 
+                        procname, 
+                        format_hints.Hex(pe.OPTIONAL_HEADER.ImageBase),
+                        aslr,
+                        ))
